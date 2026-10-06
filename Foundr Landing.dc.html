@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="_ds/foundr-design-system-7f81c1d8-2a00-4ec1-a96b-467e21c6bd78/tokens/fonts.css">
+  <link rel="stylesheet" href="_ds/foundr-design-system-7f81c1d8-2a00-4ec1-a96b-467e21c6bd78/tokens/colors.css">
+  <link rel="stylesheet" href="_ds/foundr-design-system-7f81c1d8-2a00-4ec1-a96b-467e21c6bd78/tokens/typography.css">
+  <link rel="stylesheet" href="_ds/foundr-design-system-7f81c1d8-2a00-4ec1-a96b-467e21c6bd78/tokens/spacing.css">
+  <link rel="stylesheet" href="_ds/foundr-design-system-7f81c1d8-2a00-4ec1-a96b-467e21c6bd78/tokens/base.css">
+  <link rel="stylesheet" href="_ds/foundr-design-system-7f81c1d8-2a00-4ec1-a96b-467e21c6bd78/styles.css">
+  <script src="_ds/foundr-design-system-7f81c1d8-2a00-4ec1-a96b-467e21c6bd78/_ds_bundle.js"></script>
+  <script src="./image-slot.js"></script>
+  <style>
+    html,body{margin:0;background:#fff;color:#000;font-family:'Archivo',Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased}
+    a{color:#000;text-decoration:none}a:hover{color:#3D5CF0}
+    @keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+    @keyframes feedIn{from{opacity:0;transform:translateY(-10px)}to{opacity:1;transform:none}}
+    [data-drawer]:not([data-open="true"]){opacity:0;transform:translateY(-8px);pointer-events:none}
+    @media (max-width:959px){[data-wall]{grid-template-columns:repeat(4,minmax(0,1fr)) !important}[data-tile]:nth-child(n+5){display:none}}
+    @media (max-width:639px){[data-wall]{grid-template-columns:repeat(3,minmax(0,1fr)) !important}[data-tile]:nth-child(n+4){display:none}}
+    [data-scrim]:not([data-open="true"]){opacity:0;pointer-events:none}
+    @media (max-width:900px){[data-grid-4]{grid-template-columns:repeat(2,minmax(0,1fr)) !important}}
+    @media (max-width:860px){[data-grid-3]{grid-template-columns:minmax(0,1fr) !important}}
+    @media (max-width:640px){
+      [data-scrim]{background:rgba(255,255,255,.94) !important}
+      [data-drawer]{left:24px;right:24px !important;align-items:flex-start !important}
+      [data-drawer] nav{align-items:flex-start !important}
+      [data-drawer] a{font-size:36px !important;padding:10px 0 !important}
+      [data-footer]{flex-direction:column;align-items:flex-start !important;gap:14px !important}
+      [data-footer] span{text-align:left !important}
+      [data-chip]{height:44px !important;font-size:12px !important}
+      input,select,textarea{font-size:16px !important}
+      [data-profiles-copy]{order:-1}
+      [data-profile-card]{padding:16px !important}
+      [data-stat]{padding:8px 10px !important}
+      [data-stat-label]{letter-spacing:.18em !important}
+      [data-grid-4]{display:flex !important;overflow-x:auto !important;overflow-y:hidden !important;scroll-snap-type:x mandatory;scroll-padding-inline:24px;gap:12px !important;background:transparent !important;margin:24px -24px 0;padding:0 24px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+      [data-grid-4]::-webkit-scrollbar{display:none}
+      [data-grid-4]::after{content:'';flex:0 0 12px}
+      [data-grid-4] > div{flex:0 0 82%;scroll-snap-align:start;border:1px solid #E5E5E5;border-radius:6px;box-sizing:border-box;padding:24px 22px 28px !important}
+      [data-grid-4] > div h3{margin-top:28px !important}
+      [data-grid-3]{grid-template-columns:minmax(0,1fr) !important}
+      [data-engage-panel]{padding:22px 20px 24px !important}
+      [data-engage-panel] h3{margin-top:14px !important}
+      [data-engage-open="false"] [data-engage-body]{display:none}
+      [data-engage-plus]{display:inline-block !important}
+    }
+    @media (pointer: coarse){
+      [data-chip]{height:44px !important;font-size:12px !important}
+      input,select,textarea{font-size:16px !important}
+    }
+    @media (prefers-reduced-motion: reduce){*{animation:none !important;transition:none !important}}
+  </style>
+</helmet>
+
+<div style="min-height:100vh;background:#fff;color:#000;font-family:'Archivo',Helvetica,Arial,sans-serif;overflow-x:clip;">
+
+  <nav style="max-width:1080px;margin:0 auto;padding:22px 24px;display:flex;align-items:center;justify-content:space-between;">
+    <img src="assets/logo-black.png" alt="foundr." style="height:32px;width:auto;display:block;">
+    <button type="button" aria-label="Open menu" aria-expanded="{{ navOpen }}" onClick="{{ openNav }}" onMouseEnter="{{ dotsEnter }}" onMouseLeave="{{ dotsLeave }}" onFocus="{{ dotsEnter }}" onBlur="{{ dotsLeave }}" style="width:44px;height:44px;display:flex;align-items:center;justify-content:center;background:none;border:0;border-radius:4px;cursor:pointer;padding:0;transition:background .15s cubic-bezier(.2,0,0,1);" style-hover="background:#F5F5F5;">
+      <span style="display:flex;align-items:center;justify-content:center;gap:5px;transform:rotate({{ dotsRotate }});transition:transform .25s cubic-bezier(.2,0,0,1);">
+        <span style="width:6px;height:6px;border-radius:50%;background:#5271FF;"></span>
+        <span style="width:6px;height:6px;border-radius:50%;background:#5271FF;"></span>
+        <span style="width:6px;height:6px;border-radius:50%;background:#5271FF;"></span>
+      </span>
+    </button>
+  </nav>
+
+  <div data-scrim data-open="{{ navOpenAttr }}" onClick="{{ closeNav }}" style="position:fixed;inset:0;background:transparent;z-index:40;"></div>
+  <aside data-drawer data-open="{{ navOpenAttr }}" aria-label="Site menu" style="position:fixed;top:88px;right:max(24px,calc((100vw - 1080px) / 2 + 24px - 48px));z-index:50;display:flex;flex-direction:column;align-items:flex-end;transition:opacity .3s cubic-bezier(.2,0,0,1),transform .35s cubic-bezier(.2,0,0,1);">
+    <nav style="display:flex;flex-direction:column;align-items:flex-end;gap:4px;">
+      <a href="#" onClick="{{ closeNav }}" style="display:block;padding:8px 0;font-size:28px;line-height:1.1;letter-spacing:-0.02em;font-weight:600;">Home</a>
+      <a href="#services" onClick="{{ goServices }}" style="display:block;padding:8px 0;font-size:28px;line-height:1.1;letter-spacing:-0.02em;font-weight:600;">About</a>
+      <a href="Jobs.dc.html" style="display:block;padding:8px 0;font-size:28px;line-height:1.1;letter-spacing:-0.02em;font-weight:600;">Jobs</a>
+      <a href="Services.dc.html" style="display:block;padding:8px 0;font-size:28px;line-height:1.1;letter-spacing:-0.02em;font-weight:600;">Services</a>
+      <a href="#team" onClick="{{ goTeam }}" style="display:block;padding:8px 0;font-size:28px;line-height:1.1;letter-spacing:-0.02em;font-weight:600;">Team</a>
+      <a href="Contact.dc.html" style="display:block;padding:8px 0;font-size:28px;line-height:1.1;letter-spacing:-0.02em;font-weight:600;">Contact</a>
+    </nav>
+  </aside>
+
+  <header data-reveal="" style="max-width:920px;margin:0 auto;padding:clamp(64px,11vw,112px) 24px clamp(88px,12vw,128px);text-align:center;transition:opacity .7s cubic-bezier(.2,0,0,1),transform .7s cubic-bezier(.2,0,0,1);">
+    <div style="font-size:11px;letter-spacing:.25em;text-transform:uppercase;font-weight:500;color:#5271FF;margin-bottom:28px;">◆ The foundr network</div>
+    <h1 style="margin:0;font-size:clamp(44px,7.6vw,88px);line-height:1.02;letter-spacing:-0.03em;font-weight:600;text-wrap:balance;">Connecting the brightest <em style="font-style:italic;font-weight:500;color:#5271FF;">minds</em> with the boldest ventures<span aria-label="." style="display:inline-block;width:.17em;height:.17em;border-radius:50%;background:#5271FF;margin-left:.07em;vertical-align:baseline;"></span></h1>
+    <p style="margin:32px auto 0;max-width:600px;font-size:clamp(17px,2.2vw,20px);line-height:1.55;color:#555555;text-wrap:pretty;">Building teams that will change the future, we work exclusively with VC backed startups to hire worldclass AI/ML, Engineering, Security &amp; GTM talent.</p>
+  </header>
+
+  <div data-screen-label="Open roles" style="max-width:1080px;margin:-56px auto 0;padding:0 24px 56px;">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;">
+      <span style="font-size:11px;letter-spacing:.25em;text-transform:uppercase;font-weight:500;color:#777777;">● Open roles</span>
+      <a href="#profiles" style="font-size:13px;font-weight:500;color:#5271FF;padding:10px 0;margin:-10px 0;">All roles →</a>
+    </div>
+    <div onMouseEnter="{{ pauseMarquee }}" onMouseLeave="{{ resumeMarquee }}" style="overflow:hidden;margin:0 -24px;padding:4px 0;mask-image:linear-gradient(to right,transparent,#000 6%,#000 94%,transparent);-webkit-mask-image:linear-gradient(to right,transparent,#000 6%,#000 94%,transparent);">
+      <div style="display:flex;gap:16px;width:max-content;padding-left:24px;animation:{{ marqueeAnim }};animation-play-state:{{ marqueeState }};">
+        <sc-for list="{{ marqueeJobs }}" as="job" hint-placeholder-count="8">
+          <div onMouseEnter="{{ job.enter }}" onMouseLeave="{{ job.leave }}" onClick="{{ job.toggle }}" style="width:280px;height:168px;perspective:1000px;cursor:pointer;flex-shrink:0;">
+            <div style="position:relative;width:100%;height:100%;transform-style:preserve-3d;transition:transform .55s cubic-bezier(.2,0,0,1);transform:{{ job.transform }};">
+              <div style="position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;background:#fff;border:1px solid #E5E5E5;border-radius:6px;box-shadow:0 1px 3px rgba(0,0,0,.06);padding:20px;display:flex;flex-direction:column;justify-content:space-between;box-sizing:border-box;">
+                <div style="font-size:11px;letter-spacing:.25em;text-transform:uppercase;font-weight:500;color:#5271FF;">{{ job.company }}</div>
+                <div>
+                  <div style="font-size:18px;font-weight:600;line-height:1.25;letter-spacing:-0.01em;text-wrap:balance;">{{ job.title }}</div>
+                  <div style="font-size:13px;color:#777777;margin-top:6px;">{{ job.location }}</div>
+                </div>
+              </div>
+              <div style="position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;transform:rotateY(180deg);background:#000;color:#fff;border-radius:6px;padding:20px;display:flex;flex-direction:column;justify-content:space-between;box-sizing:border-box;">
+                <p style="margin:0;font-size:14px;line-height:1.5;color:#fff;text-wrap:pretty;">{{ job.summary }}</p>
+                <div style="display:flex;justify-content:space-between;align-items:center;font-size:13px;">
+                  <span style="color:#999999;">{{ job.location }}</span>
+                  <a href="{{ job.href }}" style="font-weight:500;color:#fff;display:inline-block;padding:10px 0;margin:-10px 0;">View role →</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </div>
+
+  <div data-screen-label="Clients" style="max-width:1080px;margin:0 auto;padding:0 24px;">
+    <div style="font-size:11px;letter-spacing:.25em;text-transform:uppercase;font-weight:500;color:#777777;margin-bottom:20px;">◆ Trusted by</div>
+    <div data-wall="" onMouseEnter="{{ pauseWall }}" onMouseLeave="{{ resumeWall }}" style="display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:24px;">
+      <sc-for list="{{ wall }}" as="slot" hint-placeholder-count="0">
+        <div data-tile="" style="position:relative;height:56px;overflow:hidden;">
+          <sc-if value="{{ slot.ready }}" hint-placeholder-val="{{ false }}">
+          <div role="img" aria-label="{{ slot.aName }}" style="position:absolute;inset:0;background-image:url({{ slot.a }});background-size:contain;background-origin:content-box;padding:14px 10%;box-sizing:border-box;background-position:center;background-repeat:no-repeat;filter:grayscale(1);transform:translateY({{ slot.aY }});transition:{{ slot.aT }};"></div>
+          <div role="img" aria-label="{{ slot.bName }}" style="position:absolute;inset:0;background-image:url({{ slot.b }});background-size:contain;background-origin:content-box;padding:14px 10%;box-sizing:border-box;background-position:center;background-repeat:no-repeat;filter:grayscale(1);transform:translateY({{ slot.bY }});transition:{{ slot.bT }};"></div>
+          </sc-if>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+
+  <main style="max-width:1080px;margin:0 auto;padding:clamp(32px,5vw,48px) 24px 0;display:flex;flex-direction:column;gap:clamp(64px,10vw,96px);">
+
+    <!-- 01 Profiles -->
+    <section id="profiles" data-reveal="" data-screen-label="01 Profiles" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:64px;align-items:center;transition:opacity .7s cubic-bezier(.2,0,0,1),transform .7s cubic-bezier(.2,0,0,1);">
+      <div ref="{{ profileRef }}" onMouseLeave="{{ dropProfiles }}" style="position:relative;height:{{ stackHeight }};transition:height .8s cubic-bezier(.2,0,0,1);">
+        <sc-for list="{{ profiles }}" as="c" hint-placeholder-count="5">
+          <div data-profile-card="" onMouseEnter="{{ c.lift }}" onMouseLeave="{{ c.drop }}" style="position:absolute;left:0;right:0;top:0;background:#fff;border:1px solid #E5E5E5;border-radius:6px;padding:20px;box-sizing:border-box;transform-origin:top center;transition:{{ c.transition }};transform:{{ c.transform }};z-index:{{ c.z }};box-shadow:{{ c.shadow }};border-color:{{ c.border }};">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:16px;">
+              <div style="display:flex;gap:12px;align-items:center;">
+                <span aria-label="{{ c.iconLabel }}" role="img" style="width:40px;height:40px;border-radius:4px;background:#F5F5F5;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;">
+                  <sc-if value="{{ c.isSE }}" hint-placeholder-val="{{ false }}"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><circle cx="6" cy="6" r="1.6" fill="#000"></circle><circle cx="12" cy="6" r="1.6" fill="#000"></circle><circle cx="18" cy="6" r="1.6" fill="#000"></circle><circle cx="6" cy="12" r="1.6" fill="#000"></circle><circle cx="12" cy="12" r="2.1" fill="#5271FF"></circle><circle cx="18" cy="12" r="1.6" fill="#000"></circle><circle cx="6" cy="18" r="1.6" fill="#000"></circle><circle cx="12" cy="18" r="1.6" fill="#000"></circle><circle cx="18" cy="18" r="1.6" fill="#000"></circle></svg></sc-if>
+                  <sc-if value="{{ c.isHS }}" hint-placeholder-val="{{ false }}"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8.25" stroke="#000" stroke-width="1.25"></circle><circle cx="12" cy="12" r="4.25" stroke="#000" stroke-width="1.25"></circle><circle cx="12" cy="12" r="2.1" fill="#5271FF"></circle></svg></sc-if>
+                  <sc-if value="{{ c.isAI }}" hint-placeholder-val="{{ false }}"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 6 8.5 12M12 6l3.5 6M8.5 12 6 18m2.5-6 3.5 6m3.5-6-3.5 6m3.5-6 2.5 6" stroke="#BBBBBB" stroke-width="1"></path><circle cx="6" cy="18" r="1.6" fill="#000"></circle><circle cx="12" cy="18" r="1.6" fill="#000"></circle><circle cx="18" cy="18" r="1.6" fill="#000"></circle><circle cx="8.5" cy="12" r="1.6" fill="#000"></circle><circle cx="15.5" cy="12" r="1.6" fill="#000"></circle><circle cx="12" cy="6" r="2.1" fill="#5271FF"></circle></svg></sc-if>
+                  <sc-if value="{{ c.isFD }}" hint-placeholder-val="{{ false }}"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><circle cx="4.5" cy="12" r="1" fill="#BBBBBB"></circle><circle cx="9" cy="12" r="1.3" fill="#777777"></circle><circle cx="13.5" cy="12" r="1.6" fill="#000"></circle><circle cx="19" cy="12" r="2.1" fill="#5271FF"></circle></svg></sc-if>
+                  <sc-if value="{{ c.isGT }}" hint-placeholder-val="{{ false }}"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><circle cx="5" cy="19" r="1.6" fill="#000"></circle><circle cx="9.5" cy="14.5" r="1.6" fill="#000"></circle><circle cx="14" cy="10" r="1.6" fill="#000"></circle><circle cx="19" cy="5" r="2.1" fill="#5271FF"></circle></svg></sc-if>
+                </span>
+                <div>
+                  <div style="font-size:16px;font-weight:600;line-height:1.3;">{{ c.title }}</div>
+                  <div style="font-size:13px;color:#777777;margin-top:2px;">{{ c.meta }}</div>
+                </div>
+              </div>
+              <div style="flex-shrink:0;white-space:nowrap;"><x-import component-from-global-scope="FoundrDesignSystem_7f81c1.Badge" variant="{{ c.badgeVariant }}" hint-size="auto,22px">{{ c.badge }}</x-import></div>
+            </div>
+            <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:18px;">
+              <sc-for list="{{ c.stats }}" as="s" hint-placeholder-count="3">
+                <div data-stat="" style="padding:10px 12px;border:1px solid #EEEEEE;border-radius:4px;min-width:0;">
+                  <div data-stat-label="" style="font-size:11px;letter-spacing:.25em;text-transform:uppercase;font-weight:500;color:#777777;overflow-wrap:anywhere;">{{ s.label }}</div>
+                  <div style="font-size:15px;font-weight:600;margin-top:6px;font-variant-numeric:tabular-nums;white-space:nowrap;">{{ s.prefix }}<span data-count="{{ s.n }}">{{ s.n }}</span>{{ s.suffix }}</div>
+                </div>
+              </sc-for>
+            </div>
+            <div style="display:flex;gap:10px;margin-top:16px;font-size:14px;line-height:1.5;color:#333333;"><span style="width:6px;height:6px;border-radius:50%;background:#5271FF;flex-shrink:0;margin-top:8px;"></span><span>{{ c.highlight }}</span></div>
+            <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:6px 12px;margin-top:16px;padding-top:14px;border-top:1px solid #EEEEEE;font-size:13px;color:#777777;">
+              <span>{{ c.footer }}</span>
+              <span style="color:#5271FF;font-weight:500;">Request intro →</span>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+      <div data-profiles-copy="">
+        <div style="font-size:11px;letter-spacing:.25em;text-transform:uppercase;font-weight:500;color:#777777;margin-bottom:20px;">01 / Talent</div>
+        <h2 style="margin:0;font-size:clamp(28px,4.5vw,34px);line-height:1.15;letter-spacing:-0.02em;font-weight:600;text-wrap:balance;">Talent you can trust<span aria-label="." style="display:inline-block;width:.17em;height:.17em;border-radius:50%;background:#5271FF;margin-left:.07em;vertical-align:baseline;"></span></h2>
+        <p style="margin:18px 0 0;font-size:16px;line-height:1.6;color:#555555;max-width:400px;text-wrap:pretty;">Every candidate arrives referenced, calibrated and ready to meet.</p>
+        <a href="#profiles" style="display:inline-block;margin:14px 0 -10px;padding:10px 0;font-size:15px;font-weight:500;">Explore →</a>
+      </div>
+    </section>
+
+    <!-- 02 Services -->
+    <section id="services" data-reveal="" data-screen-label="02 Services" style="margin-top:-64px;transition:opacity .7s cubic-bezier(.2,0,0,1),transform .7s cubic-bezier(.2,0,0,1);">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:32px 64px;align-items:end;padding-bottom:40px;border-bottom:1px solid #E5E5E5;">
+        <div>
+          <div id="services-label" style="font-size:11px;letter-spacing:.25em;text-transform:uppercase;font-weight:500;color:#777777;margin-bottom:20px;">02 / Services</div>
+          <h2 style="margin:0;font-size:clamp(28px,4.5vw,34px);line-height:1.15;letter-spacing:-0.02em;font-weight:600;text-wrap:balance;">What we <em style="font-style:italic;font-weight:500;color:#5271FF;">hire</em></h2>
+        </div>
+        <p style="margin:0;font-size:16px;line-height:1.6;color:#555555;max-width:440px;text-wrap:pretty;">Four practice areas, each led by operators who've shipped in the trenches. We staff the first ten and the team that comes after.</p>
+      </div>
+      <div data-grid-4="" style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1px;background:#EEEEEE;overflow:hidden;">
+        <div data-reveal-child="" onMouseEnter="{{ svc1.enter }}" onMouseLeave="{{ svcLeave }}" style="padding:32px 24px 36px 28px;background:{{ svc1.bg }};display:flex;flex-direction:column;gap:0;opacity:0;transform:translateY(20px);transition:opacity .7s cubic-bezier(.2,0,0,1) 0ms,transform .7s cubic-bezier(.2,0,0,1) 0ms,background .3s cubic-bezier(.2,0,0,1);">
+          <div style="display:flex;align-items:center;gap:0;font-size:11px;letter-spacing:.25em;text-transform:uppercase;font-weight:500;color:{{ svc1.muted }};transition:color .3s cubic-bezier(.2,0,0,1);"><span style="width:6px;height:6px;border-radius:50%;background:{{ svc1.dot }};flex-shrink:0;margin-right:{{ svc1.dotGap }};transform:scale({{ svc1.dotScale }});transition:transform .25s cubic-bezier(.2,0,0,1),margin-right .25s cubic-bezier(.2,0,0,1);"></span><span>01 — AI / ML</span></div>
+          <h3 style="margin:40px 0 0;font-size:22px;line-height:1.25;letter-spacing:-0.01em;font-weight:600;text-wrap:balance;color:{{ svc1.ink }};transition:color .3s cubic-bezier(.2,0,0,1);">Research, infra &amp; applied AI</h3>
+          <p style="margin:14px 0 0;font-size:15px;line-height:1.6;color:{{ svc1.body }};text-wrap:pretty;transition:color .3s cubic-bezier(.2,0,0,1);">Founding ML engineers, research leads, and post-training specialists for frontier-adjacent teams.</p>
+          <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:auto;padding-top:24px;"><span style="display:inline-flex;align-items:center;height:26px;padding:0 10px;border:1px solid {{ svc1.tagBorder }};border-radius:4px;font-size:11px;letter-spacing:.12em;text-transform:uppercase;font-weight:500;color:{{ svc1.tagColor }};white-space:nowrap;transition:border-color .2s cubic-bezier(.2,0,0,1) 0ms,color .2s cubic-bezier(.2,0,0,1) 0ms;">Post-training</span><span style="display:inline-flex;align-items:center;height:26px;padding:0 10px;border:1px solid {{ svc1.tagBorder }};border-radius:4px;font-size:11px;letter-spacing:.12em;text-transform:uppercase;font-weight:500;color:{{ svc1.tagColor }};white-space:nowrap;transition:border-color .2s cubic-bezier(.2,0,0,1) 50ms,color .2s cubic-bezier(.2,0,0,1) 50ms;">Agents</span><span style="display:inline-flex;align-items:center;height:26px;padding:0 10px;border:1px solid {{ svc1.tagBorder }};border-radius:4px;font-size:11px;letter-spacing:.12em;text-transform:uppercase;font-weight:500;color:{{ svc1.tagColor }};white-space:nowrap;transition:border-color .2s cubic-bezier(.2,0,0,1) 100ms,color .2s cubic-bezier(.2,0,0,1) 100ms;">Infra</span><span style="display:inline-flex;align-items:center;height:26px;padding:0 10px;border:1px solid {{ svc1.tagBorder }};border-radius:4px;font-size:11px;letter-spacing:.12em;text-transform:uppercase;font-weight:500;color:{{ svc1.tagColor }};white-space:nowrap;transition:border-color .2s cubic-bezier(.2,0,0,1) 150ms,color .2s cubic-bezier(.2,0,0,1) 150ms;">Research</span></div>
+        </div>
+        <div data-reveal-child="" onMouseEnter="{{ svc2.enter }}" onMouseLeave="{{ svcLeave }}" style="padding:32px 24px 36px 28px;background:{{ svc2.bg }};display:flex;flex-direction:column;gap:0;opacity:0;transform:translateY(20px);transition:opacity .7s cubic-bezier(.2,0,0,1) 90ms,transform .7s cubic-bezier(.2,0,0,1) 90ms,background .3s cubic-bezier(.2,0,0,1);">
+          <div style="display:flex;align-items:center;gap:0;font-size:11px;letter-spacing:.25em;text-transform:uppercase;font-weight:500;color:{{ svc2.muted }};transition:color .3s cubic-bezier(.2,0,0,1);"><span style="width:6px;height:6px;border-radius:50%;background:{{ svc2.dot }};flex-shrink:0;margin-right:{{ svc2.dotGap }};transform:scale({{ svc2.dotScale }});transition:transform .25s cubic-bezier(.2,0,0,1),margin-right .25s cubic-bezier(.2,0,0,1);"></span><span>02 — Engineering</span></div>
+          <h3 style="margin:40px 0 0;font-size:22px;line-height:1.25;letter-spacing:-0.01em;font-weight:600;text-wrap:balance;color:{{ svc2.ink }};transition:color .3s cubic-bezier(.2,0,0,1);">Product, platform, staff+</h3>
+          <p style="margin:14px 0 0;font-size:15px;line-height:1.6;color:{{ svc2.body }};text-wrap:pretty;transition:color .3s cubic-bezier(.2,0,0,1);">From the first backend engineer to heads of platform scaling 0→1→10.</p>
+          <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:auto;padding-top:24px;"><span style="display:inline-flex;align-items:center;height:26px;padding:0 10px;border:1px solid {{ svc2.tagBorder }};border-radius:4px;font-size:11px;letter-spacing:.12em;text-transform:uppercase;font-weight:500;color:{{ svc2.tagColor }};white-space:nowrap;transition:border-color .2s cubic-bezier(.2,0,0,1) 0ms,color .2s cubic-bezier(.2,0,0,1) 0ms;">Backend</span><span style="display:inline-flex;align-items:center;height:26px;padding:0 10px;border:1px solid {{ svc2.tagBorder }};border-radius:4px;font-size:11px;letter-spacing:.12em;text-transform:uppercase;font-weight:500;color:{{ svc2.tagColor }};white-space:nowrap;transition:border-color .2s cubic-bezier(.2,0,0,1) 50ms,color .2s cubic-bezier(.2,0,0,1) 50ms;">Platform</span><span style="display:inline-flex;align-items:center;height:26px;padding:0 10px;border:1px solid {{ svc2.tagBorder }};border-radius:4px;font-size:11px;letter-spacing:.12em;text-transform:uppercase;font-weight:500;color:{{ svc2.tagColor }};white-space:nowrap;transition:border-color .2s cubic-bezier(.2,0,0,1) 100ms,color .2s cubic-bezier(.2,0,0,1) 100ms;">Staff</span><span style="display:inline-flex;align-items:center;height:26px;padding:0 10px;border:1px solid {{ svc2.tagBorder }};border-radius:4px;font-size:11px;letter-spacing:.12em;text-transform:uppercase;font-weight:500;color:{{ svc2.tagColor }};white-space:nowrap;transition:border-color .2s cubic-bezier(.2,0,0,1) 150ms,color .2s cubic-bezier(.2,0,0,1) 150ms;">EM</span></div>
+        </div>
+        <div data-reveal-child="" onMouseEnter="{{ svc3.enter }}" onMouseLeave="{{ svcLeave }}" style="padding:32px 24px 36px 28px;background:{{ svc3.bg }};display:flex;flex-direction:column;gap:0;opacity:0;transform:translateY(20px);transition:opacity .7s cubic-bezier(.2,0,0,1) 180ms,transform .7s cubic-bezier(.2,0,0,1) 180ms,background .3s cubic-bezier(.2,0,0,1);">
+          <div style="display:flex;align-items:center;gap:0;font-size:11px;letter-spacing:.25em;text-transform:uppercase;font-weight:500;color:{{ svc3.muted }};transition:color .3s cubic-bezier(.2,0,0,1);"><span style="width:6px;height:6px;border-radius:50%;background:{{ svc3.dot }};flex-shrink:0;margin-right:{{ svc3.dotGap }};transform:scale({{ svc3.dotScale }});transition:transform .25s cubic-bezier(.2,0,0,1),margin-right .25s cubic-bezier(.2,0,0,1);"></span><span>03 — Security</span></div>
+          <h3 style="margin:40px 0 0;font-size:22px;line-height:1.25;letter-spacing:-0.01em;font-weight:600;text-wrap:balance;color:{{ svc3.ink }};transition:color .3s cubic-bezier(.2,0,0,1);">AppSec, detection, CISOs</h3>
+          <p style="margin:14px 0 0;font-size:15px;line-height:1.6;color:{{ svc3.body }};text-wrap:pretty;transition:color .3s cubic-bezier(.2,0,0,1);">Security leaders who know how to build a program on a seed budget and a Series C runway.</p>
+          <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:auto;padding-top:24px;"><span style="display:inline-flex;align-items:center;height:26px;padding:0 10px;border:1px solid {{ svc3.tagBorder }};border-radius:4px;font-size:11px;letter-spacing:.12em;text-transform:uppercase;font-weight:500;color:{{ svc3.tagColor }};white-space:nowrap;transition:border-color .2s cubic-bezier(.2,0,0,1) 0ms,color .2s cubic-bezier(.2,0,0,1) 0ms;">AppSec</span><span style="display:inline-flex;align-items:center;height:26px;padding:0 10px;border:1px solid {{ svc3.tagBorder }};border-radius:4px;font-size:11px;letter-spacing:.12em;text-transform:uppercase;font-weight:500;color:{{ svc3.tagColor }};white-space:nowrap;transition:border-color .2s cubic-bezier(.2,0,0,1) 50ms,color .2s cubic-bezier(.2,0,0,1) 50ms;">DetEng</span><span style="display:inline-flex;align-items:center;height:26px;padding:0 10px;border:1px solid {{ svc3.tagBorder }};border-radius:4px;font-size:11px;letter-spacing:.12em;text-transform:uppercase;font-weight:500;color:{{ svc3.tagColor }};white-space:nowrap;transition:border-color .2s cubic-bezier(.2,0,0,1) 100ms,color .2s cubic-bezier(.2,0,0,1) 100ms;">CISO</span><span style="display:inline-flex;align-items:center;height:26px;padding:0 10px;border:1px solid {{ svc3.tagBorder }};border-radius:4px;font-size:11px;letter-spacing:.12em;text-transform:uppercase;font-weight:500;color:{{ svc3.tagColor }};white-space:nowrap;transition:border-color .2s cubic-bezier(.2,0,0,1) 150ms,color .2s cubic-bezier(.2,0,0,1) 150ms;">Compliance</span></div>
+        </div>
+        <div data-reveal-child="" onMouseEnter="{{ svc4.enter }}" onMouseLeave="{{ svcLeave }}" style="padding:32px 24px 36px 28px;background:{{ svc4.bg }};display:flex;flex-direction:column;gap:0;opacity:0;transform:translateY(20px);transition:opacity .7s cubic-bezier(.2,0,0,1) 270ms,transform .7s cubic-bezier(.2,0,0,1) 270ms,background .3s cubic-bezier(.2,0,0,1);">
+          <div style="display:flex;align-items:center;gap:0;font-size:11px;letter-spacing:.25em;text-transform:uppercase;font-weight:500;color:{{ svc4.muted }};transition:color .3s cubic-bezier(.2,0,0,1);"><span style="width:6px;height:6px;border-radius:50%;background:{{ svc4.dot }};flex-shrink:0;margin-right:{{ svc4.dotGap }};transform:scale({{ svc4.dotScale }});transition:transform .25s cubic-bezier(.2,0,0,1),margin-right .25s cubic-bezier(.2,0,0,1);"></span><span>04 — GTM</span></div>
+          <h3 style="margin:40px 0 0;font-size:22px;line-height:1.25;letter-spacing:-0.01em;font-weight:600;text-wrap:balance;color:{{ svc4.ink }};transition:color .3s cubic-bezier(.2,0,0,1);">Founding sales, marketing, ops</h3>
+          <p style="margin:14px 0 0;font-size:15px;line-height:1.6;color:{{ svc4.body }};text-wrap:pretty;transition:color .3s cubic-bezier(.2,0,0,1);">First AE to VP Sales. Brand marketers and RevOps architects who've done the ladder before.</p>
+          <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:auto;padding-top:24px;"><span style="display:inline-flex;align-items:center;height:26px;padding:0 10px;border:1px solid {{ svc4.tagBorder }};border-radius:4px;font-size:11px;letter-spacing:.12em;text-transform:uppercase;font-weight:500;color:{{ svc4.tagColor }};white-space:nowrap;transition:border-color .2s cubic-bezier(.2,0,0,1) 0ms,color .2s cubic-bezier(.2,0,0,1) 0ms;">Sales</span><span style="display:inline-flex;align-items:center;height:26px;padding:0 10px;border:1px solid {{ svc4.tagBorder }};border-radius:4px;font-size:11px;letter-spacing:.12em;text-transform:uppercase;font-weight:500;color:{{ svc4.tagColor }};white-space:nowrap;transition:border-color .2s cubic-bezier(.2,0,0,1) 50ms,color .2s cubic-bezier(.2,0,0,1) 50ms;">Marketing</span><span style="display:inline-flex;align-items:center;height:26px;padding:0 10px;border:1px solid {{ svc4.tagBorder }};border-radius:4px;font-size:11px;letter-spacing:.12em;text-transform:uppercase;font-weight:500;color:{{ svc4.tagColor }};white-space:nowrap;transition:border-color .2s cubic-bezier(.2,0,0,1) 100ms,color .2s cubic-bezier(.2,0,0,1) 100ms;">RevOps</span><span style="display:inline-flex;align-items:center;height:26px;padding:0 10px;border:1px solid {{ svc4.tagBorder }};border-radius:4px;font-size:11px;letter-spacing:.12em;text-transform:uppercase;font-weight:500;color:{{ svc4.tagColor }};white-space:nowrap;transition:border-color .2s cubic-bezier(.2,0,0,1) 150ms,color .2s cubic-bezier(.2,0,0,1) 150ms;">Success</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Community -->
+    <section data-reveal="" data-screen-label="Community" style="transition:opacity .7s cubic-bezier(.2,0,0,1),transform .7s cubic-bezier(.2,0,0,1);">
+      <div style="max-width:640px;">
+        <div style="font-size:11px;letter-spacing:.25em;text-transform:uppercase;font-weight:500;color:#777777;margin-bottom:20px;">◆ Community</div>
+        <h2 style="margin:0;font-size:clamp(28px,4.5vw,34px);line-height:1.15;letter-spacing:-0.02em;font-weight:600;text-wrap:balance;">Built in rooms like <em style="font-style:italic;font-weight:500;">these</em><span aria-label="." style="display:inline-block;width:.17em;height:.17em;border-radius:50%;background:#5271FF;margin-left:.07em;vertical-align:baseline;"></span></h2>
+        <p style="margin:18px 0 0;font-size:16px;line-height:1.6;color:#555555;max-width:460px;text-wrap:pretty;">Dinners, demo nights and quiet introductions. The network exists offline first.</p>
+      </div>
+      <div id="community-photos" ref="{{ photosRef }}" onScroll="{{ photosScroll }}" onPointerDown="{{ photosDown }}" onPointerMove="{{ photosMove }}" onPointerUp="{{ photosUp }}" onPointerCancel="{{ photosUp }}" style="overflow-x:auto;overflow-y:hidden;margin:48px -24px 0;padding:0 24px;scrollbar-width:none;-webkit-overflow-scrolling:touch;cursor:{{ photosCursor }};user-select:none;">
+        <div style="display:flex;gap:12px;height:clamp(220px,40vw,340px);width:max-content;">
+          <img src="assets/photo-4-web.jpg" decoding="async" alt="" style="height:100%;width:auto;aspect-ratio:400/340;object-fit:cover;border-radius:4px;display:block;flex-shrink:0;pointer-events:none;">
+          <img src="assets/photo-2-web.jpg" decoding="async" alt="" style="height:100%;width:auto;aspect-ratio:440/340;object-fit:cover;border-radius:4px;display:block;flex-shrink:0;pointer-events:none;">
+          <img src="assets/photo-10-web.jpg" decoding="async" alt="" style="height:100%;width:auto;aspect-ratio:300/340;object-fit:cover;border-radius:4px;display:block;flex-shrink:0;pointer-events:none;">
+          <img src="assets/photo-9-web.jpg" decoding="async" alt="" style="height:100%;width:auto;aspect-ratio:260/340;object-fit:cover;border-radius:4px;display:block;flex-shrink:0;pointer-events:none;">
+          <img src="assets/photo-7-web.jpg" decoding="async" alt="" style="height:100%;width:auto;aspect-ratio:280/340;object-fit:cover;border-radius:4px;display:block;flex-shrink:0;pointer-events:none;">
+          <img src="assets/photo-13-web.jpg" decoding="async" alt="" style="height:100%;width:auto;aspect-ratio:300/340;object-fit:cover;border-radius:4px;display:block;flex-shrink:0;pointer-events:none;">
+          <img src="assets/photo-12-web.jpg" decoding="async" alt="" style="height:100%;width:auto;aspect-ratio:440/340;object-fit:cover;border-radius:4px;display:block;flex-shrink:0;pointer-events:none;">
+          <img src="assets/photo-11-web.jpg" decoding="async" alt="" style="height:100%;width:auto;aspect-ratio:280/340;object-fit:cover;border-radius:4px;display:block;flex-shrink:0;pointer-events:none;">
+          <img src="assets/photo-14-web.jpg" decoding="async" alt="" style="height:100%;width:auto;aspect-ratio:280/340;object-fit:cover;border-radius:4px;display:block;flex-shrink:0;pointer-events:none;">
+          <img src="assets/photo-1-web.jpg" decoding="async" alt="" style="height:100%;width:auto;aspect-ratio:300/340;object-fit:cover;border-radius:4px;display:block;flex-shrink:0;pointer-events:none;">
+          <img src="assets/photo-6-web.jpg" decoding="async" alt="" style="height:100%;width:auto;aspect-ratio:480/340;object-fit:cover;border-radius:4px;display:block;flex-shrink:0;pointer-events:none;">
+          <img src="assets/photo-5-web.jpg" decoding="async" alt="" style="height:100%;width:auto;aspect-ratio:320/340;object-fit:cover;border-radius:4px;display:block;flex-shrink:0;pointer-events:none;">
+          <img src="assets/photo-3-web.jpg" decoding="async" alt="" style="height:100%;width:auto;aspect-ratio:260/340;object-fit:cover;border-radius:4px;display:block;flex-shrink:0;pointer-events:none;">
+          <img src="assets/photo-15-web.jpg" decoding="async" alt="" style="height:100%;width:auto;aspect-ratio:260/340;object-fit:cover;border-radius:4px;display:block;flex-shrink:0;pointer-events:none;">
+          <img src="assets/photo-8-web.jpg" decoding="async" alt="" style="height:100%;width:auto;aspect-ratio:440/340;object-fit:cover;border-radius:4px;display:block;flex-shrink:0;pointer-events:none;">
+        </div>
+      </div>
+      <div style="display:flex;align-items:center;gap:24px;margin-top:24px;">
+        <div ref="{{ photosTrackRef }}" onClick="{{ photosTrackClick }}" role="scrollbar" aria-controls="community-photos" aria-valuenow="{{ photosPct }}" aria-valuemin="0" aria-valuemax="100" aria-orientation="horizontal" style="position:relative;width:min(200px,50vw);height:20px;cursor:pointer;display:flex;align-items:center;">
+          <div style="position:absolute;left:0;right:0;height:2px;background:#EEEEEE;border-radius:999px;"></div>
+          <div style="position:absolute;top:50%;height:2px;margin-top:-1px;border-radius:999px;background:#5271FF;left:{{ photosThumbLeft }};width:{{ photosThumbWidth }};transition:left .12s linear,width .2s cubic-bezier(.2,0,0,1);"></div>
+        </div>
+        <div style="display:flex;gap:8px;flex-shrink:0;">
+          <x-import component-from-global-scope="FoundrDesignSystem_7f81c1.IconButton" variant="ghost" size="md" label="Previous photos" on-click="{{ photosPrev }}" hint-size="40px,40px">←</x-import>
+          <x-import component-from-global-scope="FoundrDesignSystem_7f81c1.IconButton" variant="ghost" size="md" label="Next photos" on-click="{{ photosNext }}" hint-size="40px,40px">→</x-import>
+        </div>
+      </div>
+    </section>
+
+    <!-- 03 Engage -->
+    <section id="engage" data-reveal="" data-screen-label="03 Engage" style="transition:opacity .7s cubic-bezier(.2,0,0,1),transform .7s cubic-bezier(.2,0,0,1);">
+      <div style="padding-bottom:40px;border-bottom:1px solid #E5E5E5;">
+        <div id="engage-label" style="font-size:11px;letter-spacing:.25em;text-transform:uppercase;font-weight:500;color:#777777;margin-bottom:20px;">03 / How we engage</div>
+        <h2 style="margin:0;font-size:clamp(28px,4.5vw,34px);line-height:1.15;letter-spacing:-0.02em;font-weight:600;text-wrap:balance;">Work with us the way that <em style="font-style:italic;font-weight:500;color:#5271FF;">works</em> for you<span aria-label="." style="display:inline-block;width:.17em;height:.17em;border-radius:50%;background:#5271FF;margin-left:.07em;vertical-align:baseline;"></span></h2>
+        <p style="margin:18px 0 0;font-size:16px;line-height:1.6;color:#555555;max-width:520px;text-wrap:pretty;">Three engagement models, each built for a different moment in your hiring story.</p>
+      </div>
+      <div data-grid-3="" style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:#EEEEEE;overflow:hidden;">
+        <div data-engage-panel="" data-engage-open="{{ e1.openAttr }}" onMouseEnter="{{ e1.enter }}" onClick="{{ e1.toggle }}" style="padding:32px 28px 36px;background:{{ e1.bg }};display:flex;flex-direction:column;cursor:pointer;transition:background .3s cubic-bezier(.2,0,0,1);">
+          <div style="display:flex;justify-content:space-between;align-items:center;font-size:11px;letter-spacing:.25em;text-transform:uppercase;font-weight:500;color:#777777;"><span>Service 01</span><span data-engage-plus="" aria-hidden="true" style="display:none;font-size:20px;line-height:1;font-weight:400;color:#5271FF;transform:rotate({{ e1.plusRot }});transition:transform .3s cubic-bezier(.2,0,0,1);">+</span></div>
+          <h3 style="margin:36px 0 0;font-size:22px;line-height:1.25;letter-spacing:-0.01em;font-weight:600;text-wrap:balance;">Contingent recruitment<span aria-label="." style="display:inline-block;width:.17em;height:.17em;border-radius:50%;background:#5271FF;margin-left:.07em;vertical-align:baseline;"></span></h3>
+          <div style="margin-top:8px;font-size:15px;font-weight:500;color:#000;">Pay only when someone signs.</div>
+          <p data-engage-body="" style="margin:14px 0 0;font-size:15px;line-height:1.6;color:#555555;text-wrap:pretty;">Most flexible model. We work the search end-to-end, you only pay on a signed offer. No retainer, no commitment.</p>
+          <div style="max-height:{{ e1.listMax }};opacity:{{ e1.listOp }};overflow:hidden;transition:max-height .45s cubic-bezier(.2,0,0,1),opacity .35s cubic-bezier(.2,0,0,1);">
+            <div style="display:flex;flex-direction:column;gap:10px;padding-top:20px;">
+              <div style="display:flex;gap:10px;font-size:14px;line-height:1.5;color:#333333;"><span style="width:6px;height:6px;border-radius:50%;background:#5271FF;flex-shrink:0;margin-top:8px;"></span><span>Mid-level to senior IC searches</span></div>
+              <div style="display:flex;gap:10px;font-size:14px;line-height:1.5;color:#333333;"><span style="width:6px;height:6px;border-radius:50%;background:#5271FF;flex-shrink:0;margin-top:8px;"></span><span>Calibrated shortlist</span></div>
+              <div style="display:flex;gap:10px;font-size:14px;line-height:1.5;color:#333333;"><span style="width:6px;height:6px;border-radius:50%;background:#5271FF;flex-shrink:0;margin-top:8px;"></span><span>Written narrative on every candidate</span></div>
+            </div>
+            <a href="Services.dc.html#contingent" style="display:inline-block;margin:12px 0 -10px;padding:10px 0;font-size:14px;font-weight:500;color:#5271FF;">See the full breakdown →</a>
+          </div>
+        </div>
+        <div data-engage-panel="" data-engage-open="{{ e2.openAttr }}" onMouseEnter="{{ e2.enter }}" onClick="{{ e2.toggle }}" style="padding:32px 28px 36px;background:{{ e2.bg }};display:flex;flex-direction:column;cursor:pointer;transition:background .3s cubic-bezier(.2,0,0,1);">
+          <div style="display:flex;justify-content:space-between;align-items:center;font-size:11px;letter-spacing:.25em;text-transform:uppercase;font-weight:500;color:#777777;"><span>Service 02</span><span data-engage-plus="" aria-hidden="true" style="display:none;font-size:20px;line-height:1;font-weight:400;color:#5271FF;transform:rotate({{ e2.plusRot }});transition:transform .3s cubic-bezier(.2,0,0,1);">+</span></div>
+          <h3 style="margin:36px 0 0;font-size:22px;line-height:1.25;letter-spacing:-0.01em;font-weight:600;text-wrap:balance;">Embedded recruiter<span aria-label="." style="display:inline-block;width:.17em;height:.17em;border-radius:50%;background:#5271FF;margin-left:.07em;vertical-align:baseline;"></span></h3>
+          <div style="margin-top:8px;font-size:15px;font-weight:500;color:#000;">A senior recruiter inside your team.</div>
+          <p data-engage-body="" style="margin:14px 0 0;font-size:15px;line-height:1.6;color:#555555;text-wrap:pretty;">Foundr senior embedded into your team for a fixed period. Your Slack, your tools, your hiring committee — without the full-time overhead.</p>
+          <div style="max-height:{{ e2.listMax }};opacity:{{ e2.listOp }};overflow:hidden;transition:max-height .45s cubic-bezier(.2,0,0,1),opacity .35s cubic-bezier(.2,0,0,1);">
+            <div style="display:flex;flex-direction:column;gap:10px;padding-top:20px;">
+              <div style="display:flex;gap:10px;font-size:14px;line-height:1.5;color:#333333;"><span style="width:6px;height:6px;border-radius:50%;background:#5271FF;flex-shrink:0;margin-top:8px;"></span><span>Companies hiring 5—20+ in a quarter</span></div>
+              <div style="display:flex;gap:10px;font-size:14px;line-height:1.5;color:#333333;"><span style="width:6px;height:6px;border-radius:50%;background:#5271FF;flex-shrink:0;margin-top:8px;"></span><span>Owns sourcing, calibration, debriefs, offers</span></div>
+              <div style="display:flex;gap:10px;font-size:14px;line-height:1.5;color:#333333;"><span style="width:6px;height:6px;border-radius:50%;background:#5271FF;flex-shrink:0;margin-top:8px;"></span><span>Leaves your team stronger when the engagement ends</span></div>
+            </div>
+            <a href="Services.dc.html#embedded" style="display:inline-block;margin:12px 0 -10px;padding:10px 0;font-size:14px;font-weight:500;color:#5271FF;">See the full breakdown →</a>
+          </div>
+        </div>
+        <div data-engage-panel="" data-engage-open="{{ e3.openAttr }}" onMouseEnter="{{ e3.enter }}" onClick="{{ e3.toggle }}" style="padding:32px 28px 36px;background:{{ e3.bg }};display:flex;flex-direction:column;cursor:pointer;transition:background .3s cubic-bezier(.2,0,0,1);">
+          <div style="display:flex;justify-content:space-between;align-items:center;font-size:11px;letter-spacing:.25em;text-transform:uppercase;font-weight:500;color:#777777;"><span>Service 03</span><span data-engage-plus="" aria-hidden="true" style="display:none;font-size:20px;line-height:1;font-weight:400;color:#5271FF;transform:rotate({{ e3.plusRot }});transition:transform .3s cubic-bezier(.2,0,0,1);">+</span></div>
+          <h3 style="margin:36px 0 0;font-size:22px;line-height:1.25;letter-spacing:-0.01em;font-weight:600;text-wrap:balance;">Retained executive search<span aria-label="." style="display:inline-block;width:.17em;height:.17em;border-radius:50%;background:#5271FF;margin-left:.07em;vertical-align:baseline;"></span></h3>
+          <div style="margin-top:8px;font-size:15px;font-weight:500;color:#000;">For the hires you can't afford to get wrong.</div>
+          <p data-engage-body="" style="margin:14px 0 0;font-size:15px;line-height:1.6;color:#555555;text-wrap:pretty;">Exclusive engagement for senior leadership. Deeper market scan, longer diligence, more co-design with the founders.</p>
+          <div style="max-height:{{ e3.listMax }};opacity:{{ e3.listOp }};overflow:hidden;transition:max-height .45s cubic-bezier(.2,0,0,1),opacity .35s cubic-bezier(.2,0,0,1);">
+            <div style="display:flex;flex-direction:column;gap:10px;padding-top:20px;">
+              <div style="display:flex;gap:10px;font-size:14px;line-height:1.5;color:#333333;"><span style="width:6px;height:6px;border-radius:50%;background:#5271FF;flex-shrink:0;margin-top:8px;"></span><span>C-level, VP, "first-of-function" hires</span></div>
+              <div style="display:flex;gap:10px;font-size:14px;line-height:1.5;color:#333333;"><span style="width:6px;height:6px;border-radius:50%;background:#5271FF;flex-shrink:0;margin-top:8px;"></span><span>Full market map, structured loops, deep references</span></div>
+              <div style="display:flex;gap:10px;font-size:14px;line-height:1.5;color:#333333;"><span style="width:6px;height:6px;border-radius:50%;background:#5271FF;flex-shrink:0;margin-top:8px;"></span><span>Weekly written progress reports throughout the search</span></div>
+            </div>
+            <a href="Services.dc.html#retained" style="display:inline-block;margin:12px 0 -10px;padding:10px 0;font-size:14px;font-weight:500;color:#5271FF;">See the full breakdown →</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 04 Founders -->
+    <section data-reveal="" data-screen-label="04 Founders" style="transition:opacity .7s cubic-bezier(.2,0,0,1),transform .7s cubic-bezier(.2,0,0,1);">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:32px 64px;align-items:end;padding-bottom:40px;border-bottom:1px solid #E5E5E5;">
+        <div>
+          <div style="font-size:11px;letter-spacing:.25em;text-transform:uppercase;font-weight:500;color:#777777;margin-bottom:20px;">04 / Founders on foundr</div>
+          <h2 style="margin:0;font-size:clamp(28px,4.5vw,34px);line-height:1.15;letter-spacing:-0.02em;font-weight:600;text-wrap:balance;">The receipts<span aria-label="." style="display:inline-block;width:.17em;height:.17em;border-radius:50%;background:#5271FF;margin-left:.07em;vertical-align:baseline;"></span></h2>
+        </div>
+        <p style="margin:0;font-size:16px;line-height:1.6;color:#555555;max-width:440px;text-wrap:pretty;">We'd rather let the founders we've worked with do the talking. Avg. <span data-count="9.4" data-dec="1" style="font-weight:600;color:#000;">9.4</span>/10 across every search we've closed.</p>
+      </div>
+      <div style="min-width:0;padding-top:48px;">
+        <div ref="{{ carouselRef }}" onScroll="{{ onCarouselScroll }}" style="display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;scrollbar-width:none;-webkit-overflow-scrolling:touch;">
+          <figure style="flex:0 0 100%;scroll-snap-align:start;margin:0;min-width:0;display:flex;flex-direction:column;justify-content:space-between;gap:40px;">
+            <blockquote style="margin:0;font-size:clamp(20px,2.2vw,28px);line-height:1.35;letter-spacing:-0.01em;font-weight:500;color:#000;text-wrap:balance;max-width:800px;">“Foundr found our first two research engineers in under three weeks. Both still with us. Both shipped in month one.”</blockquote>
+            <figcaption style="display:flex;align-items:center;gap:12px;font-size:15px;"><span style="width:6px;height:6px;border-radius:50%;background:#5271FF;flex-shrink:0;"></span><span><span style="font-weight:600;">Maya Herrera</span><span style="color:#777777;"> · Co-founder, Stalwart AI</span></span></figcaption>
+          </figure>
+          <figure style="flex:0 0 100%;scroll-snap-align:start;margin:0;min-width:0;display:flex;flex-direction:column;justify-content:space-between;gap:40px;">
+            <blockquote style="margin:0;font-size:clamp(20px,2.2vw,28px);line-height:1.35;letter-spacing:-0.01em;font-weight:500;color:#000;text-wrap:balance;max-width:800px;">“We'd been stuck on a CISO search for five months. Foundr closed it in 34 days. The candidate pool was noticeably different.”</blockquote>
+            <figcaption style="display:flex;align-items:center;gap:12px;font-size:15px;"><span style="width:6px;height:6px;border-radius:50%;background:#5271FF;flex-shrink:0;"></span><span><span style="font-weight:600;">Jeevan Singh</span><span style="color:#777777;"> · CEO, Ledger Systems</span></span></figcaption>
+          </figure>
+          <figure style="flex:0 0 100%;scroll-snap-align:start;margin:0;min-width:0;display:flex;flex-direction:column;justify-content:space-between;gap:40px;">
+            <blockquote style="margin:0;font-size:clamp(20px,2.2vw,28px);line-height:1.35;letter-spacing:-0.01em;font-weight:500;color:#000;text-wrap:balance;max-width:800px;">“No recruiter theater. Senior-to-senior. Real references. Real calibration. We hired six people through them this year.”</blockquote>
+            <figcaption style="display:flex;align-items:center;gap:12px;font-size:15px;"><span style="width:6px;height:6px;border-radius:50%;background:#5271FF;flex-shrink:0;"></span><span><span style="font-weight:600;">Tim Chen</span><span style="color:#777777;"> · VP Eng, Hollowfield</span></span></figcaption>
+          </figure>
+          <figure style="flex:0 0 100%;scroll-snap-align:start;margin:0;min-width:0;display:flex;flex-direction:column;justify-content:space-between;gap:40px;">
+            <blockquote style="margin:0;font-size:clamp(20px,2.2vw,28px);line-height:1.35;letter-spacing:-0.01em;font-weight:500;color:#000;text-wrap:balance;max-width:800px;">“They understood the role better than our own job description did. Our head of design started four weeks after the first call.”</blockquote>
+            <figcaption style="display:flex;align-items:center;gap:12px;font-size:15px;"><span style="width:6px;height:6px;border-radius:50%;background:#5271FF;flex-shrink:0;"></span><span><span style="font-weight:600;">Amara Osei</span><span style="color:#777777;"> · Founder, Brightline</span></span></figcaption>
+          </figure>
+          <figure style="flex:0 0 100%;scroll-snap-align:start;margin:0;min-width:0;display:flex;flex-direction:column;justify-content:space-between;gap:40px;">
+            <blockquote style="margin:0;font-size:clamp(20px,2.2vw,28px);line-height:1.35;letter-spacing:-0.01em;font-weight:500;color:#000;text-wrap:balance;max-width:800px;">“Three finalists, all hireable. We had never seen that from a search firm.”</blockquote>
+            <figcaption style="display:flex;align-items:center;gap:12px;font-size:15px;"><span style="width:6px;height:6px;border-radius:50%;background:#5271FF;flex-shrink:0;"></span><span><span style="font-weight:600;">Lena Okafor</span><span style="color:#777777;"> · COO, Kestrel</span></span></figcaption>
+          </figure>
+          <figure style="flex:0 0 100%;scroll-snap-align:start;margin:0;min-width:0;display:flex;flex-direction:column;justify-content:space-between;gap:40px;">
+            <blockquote style="margin:0;font-size:clamp(20px,2.2vw,28px);line-height:1.35;letter-spacing:-0.01em;font-weight:500;color:#000;text-wrap:balance;max-width:800px;">“Our founding engineer came through foundr. Eighteen months later she runs the platform team.”</blockquote>
+            <figcaption style="display:flex;align-items:center;gap:12px;font-size:15px;"><span style="width:6px;height:6px;border-radius:50%;background:#5271FF;flex-shrink:0;"></span><span><span style="font-weight:600;">Daniel Kim</span><span style="color:#777777;"> · CEO, Northwind</span></span></figcaption>
+          </figure>
+          <figure style="flex:0 0 100%;scroll-snap-align:start;margin:0;min-width:0;display:flex;flex-direction:column;justify-content:space-between;gap:40px;">
+            <blockquote style="margin:0;font-size:clamp(20px,2.2vw,28px);line-height:1.35;letter-spacing:-0.01em;font-weight:500;color:#000;text-wrap:balance;max-width:800px;">“We asked for someone who had scaled a fintech ledger before. They sent two. We hired one and kept the other in touch.”</blockquote>
+            <figcaption style="display:flex;align-items:center;gap:12px;font-size:15px;"><span style="width:6px;height:6px;border-radius:50%;background:#5271FF;flex-shrink:0;"></span><span><span style="font-weight:600;">Sofia Alvarez</span><span style="color:#777777;"> · CTO, Alder</span></span></figcaption>
+          </figure>
+          <figure style="flex:0 0 100%;scroll-snap-align:start;margin:0;min-width:0;display:flex;flex-direction:column;justify-content:space-between;gap:40px;">
+            <blockquote style="margin:0;font-size:clamp(20px,2.2vw,28px);line-height:1.35;letter-spacing:-0.01em;font-weight:500;color:#000;text-wrap:balance;max-width:800px;">“Quiet, fast and honest about who was not a fit. That saved us weeks.”</blockquote>
+            <figcaption style="display:flex;align-items:center;gap:12px;font-size:15px;"><span style="width:6px;height:6px;border-radius:50%;background:#5271FF;flex-shrink:0;"></span><span><span style="font-weight:600;">Tomás Ferreira</span><span style="color:#777777;"> · Co-founder, Halden</span></span></figcaption>
+          </figure>
+          <figure style="flex:0 0 100%;scroll-snap-align:start;margin:0;min-width:0;display:flex;flex-direction:column;justify-content:space-between;gap:40px;">
+            <blockquote style="margin:0;font-size:clamp(20px,2.2vw,28px);line-height:1.35;letter-spacing:-0.01em;font-weight:500;color:#000;text-wrap:balance;max-width:800px;">“The first CFO search we did not have to run ourselves. Closed in 29 days.”</blockquote>
+            <figcaption style="display:flex;align-items:center;gap:12px;font-size:15px;"><span style="width:6px;height:6px;border-radius:50%;background:#5271FF;flex-shrink:0;"></span><span><span style="font-weight:600;">Marcus Chen</span><span style="color:#777777;"> · CEO, Lumen Labs</span></span></figcaption>
+          </figure>
+          <figure style="flex:0 0 100%;scroll-snap-align:start;margin:0;min-width:0;display:flex;flex-direction:column;justify-content:space-between;gap:40px;">
+            <blockquote style="margin:0;font-size:clamp(20px,2.2vw,28px);line-height:1.35;letter-spacing:-0.01em;font-weight:500;color:#000;text-wrap:balance;max-width:800px;">“They called references we would never have found. The picture of each candidate was complete.”</blockquote>
+            <figcaption style="display:flex;align-items:center;gap:12px;font-size:15px;"><span style="width:6px;height:6px;border-radius:50%;background:#5271FF;flex-shrink:0;"></span><span><span style="font-weight:600;">Julien Moreau</span><span style="color:#777777;"> · Founder, Meridian Robotics</span></span></figcaption>
+          </figure>
+          <figure style="flex:0 0 100%;scroll-snap-align:start;margin:0;min-width:0;display:flex;flex-direction:column;justify-content:space-between;gap:40px;">
+            <blockquote style="margin:0;font-size:clamp(20px,2.2vw,28px);line-height:1.35;letter-spacing:-0.01em;font-weight:500;color:#000;text-wrap:balance;max-width:800px;">“Foundr placed our VP Engineering and two staff engineers in one quarter.”</blockquote>
+            <figcaption style="display:flex;align-items:center;gap:12px;font-size:15px;"><span style="width:6px;height:6px;border-radius:50%;background:#5271FF;flex-shrink:0;"></span><span><span style="font-weight:600;">Priya Raman</span><span style="color:#777777;"> · CEO, Orbit Health</span></span></figcaption>
+          </figure>
+          <figure style="flex:0 0 100%;scroll-snap-align:start;margin:0;min-width:0;display:flex;flex-direction:column;justify-content:space-between;gap:40px;">
+            <blockquote style="margin:0;font-size:clamp(20px,2.2vw,28px);line-height:1.35;letter-spacing:-0.01em;font-weight:500;color:#000;text-wrap:balance;max-width:800px;">“No volume, just the right three people. That is the whole pitch and they delivered it.”</blockquote>
+            <figcaption style="display:flex;align-items:center;gap:12px;font-size:15px;"><span style="width:6px;height:6px;border-radius:50%;background:#5271FF;flex-shrink:0;"></span><span><span style="font-weight:600;">Elena Weiss</span><span style="color:#777777;"> · Co-founder, Sable</span></span></figcaption>
+          </figure>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-top:40px;">
+          <div style="display:flex;align-items:center;gap:16px;font-size:13px;color:#777777;font-variant-numeric:tabular-nums;">
+            <span><span style="color:#000;font-weight:600;">{{ slideNow }}</span> / 12</span>
+            <div style="position:relative;width:120px;height:2px;background:#EEEEEE;border-radius:999px;"><div style="position:absolute;top:0;bottom:0;left:0;width:{{ slideProgress }};background:#5271FF;border-radius:999px;transition:width .35s cubic-bezier(.2,0,0,1);"></div></div>
+          </div>
+          <div style="display:flex;gap:8px;align-items:center;">
+            <x-import component-from-global-scope="FoundrDesignSystem_7f81c1.IconButton" variant="ghost" size="md" label="Previous" on-click="{{ prevSlide }}" hint-size="40px,40px">←</x-import>
+            <x-import component-from-global-scope="FoundrDesignSystem_7f81c1.IconButton" variant="ghost" size="md" label="Next" on-click="{{ nextSlide }}" hint-size="40px,40px">→</x-import>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Team -->
+  <section id="team" data-reveal="" data-screen-label="Team" style="max-width:1080px;margin:clamp(72px,11vw,112px) auto 0;padding:0 24px;transition:opacity .7s cubic-bezier(.2,0,0,1),transform .7s cubic-bezier(.2,0,0,1);">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:32px 64px;align-items:end;margin-bottom:48px;">
+      <div>
+        <div id="team-label" style="font-size:11px;letter-spacing:.25em;text-transform:uppercase;font-weight:500;color:#777777;margin-bottom:20px;">◆ The team</div>
+        <h2 style="margin:0;font-size:clamp(28px,4.5vw,34px);line-height:1.15;letter-spacing:-0.02em;font-weight:600;text-wrap:balance;">Built by people who know <em style="font-style:italic;font-weight:500;color:#5271FF;">startup DNA</em><span aria-label="." style="display:inline-block;width:.17em;height:.17em;border-radius:50%;background:#5271FF;margin-left:.07em;vertical-align:baseline;"></span></h2>
+      </div>
+      <p style="margin:0;font-size:16px;line-height:1.6;color:#555555;max-width:440px;text-wrap:pretty;">A small team of builders-turned-recruiters. We know the work because we've done it — and we know who to call when you need someone great.</p>
+    </div>
+    <div ref="{{ teamRef }}" onMouseLeave="{{ teamLeave }}" style="display:flex;flex-wrap:wrap;gap:24px;align-items:flex-start;">
+      <div onMouseEnter="{{ tm1.open }}" onClick="{{ tm1.toggle }}" style="flex:{{ tm1.flex }};min-width:0;display:flex;flex-wrap:{{ tm1.wrap }};align-items:flex-start;gap:{{ tm1.gap }};padding:{{ tm1.pad }};border:1px solid {{ tm1.border }};border-radius:6px;background:{{ tm1.bg }};box-sizing:border-box;cursor:{{ tm1.cursor }};overflow:hidden;transition:flex .8s cubic-bezier(.2,0,0,1),gap .8s cubic-bezier(.2,0,0,1),padding .8s cubic-bezier(.2,0,0,1),border-color .4s cubic-bezier(.2,0,0,1),background .4s cubic-bezier(.2,0,0,1);">
+        <div style="flex:0 0 {{ tm1.leftBasis }};max-width:100%;min-width:0;display:flex;flex-direction:{{ tm1.leftDir }};gap:16px;transition:flex-basis .8s cubic-bezier(.2,0,0,1);">
+          <div style="aspect-ratio:4/5;width:{{ tm1.photoW }};flex-shrink:0;filter:grayscale(1) contrast(1.05);"><image-slot id="team-bruce" shape="rounded" radius="4" placeholder="Drop Bruce's photo"></image-slot></div>
+          <div style="flex:1 1 auto;min-width:0;">
+            <div style="font-size:11px;letter-spacing:.25em;text-transform:uppercase;font-weight:500;color:#777777;">Security · AI/ML · Engineering</div>
+            <div style="margin-top:12px;font-size:18px;font-weight:600;line-height:1.3;color:#5271FF;">Bruce Pendrey</div>
+            <div style="margin-top:3px;font-size:14px;color:#777777;">Co-founder</div>
+          </div>
+        </div>
+        <sc-if value="{{ tm1.isOpen }}" hint-placeholder-val="{{ false }}">
+          <div style="flex:{{ tm1.bioFlex }};min-width:0;overflow:hidden;align-self:stretch;">
+            <div style="width:{{ teamBioW }};display:flex;flex-direction:column;gap:14px;">
+              <p style="margin:0;font-size:15px;line-height:1.6;color:#333333;text-wrap:pretty;">Bruce co-founded foundr in 2024 after years on the operator side, building and hiring security and engineering teams inside venture-backed startups. He got tired of recruiters who pitched well and then handed the search to someone else.</p>
+              <p style="margin:0;font-size:15px;line-height:1.6;color:#333333;text-wrap:pretty;">He runs our security and AI/ML searches personally: the first call, the sourcing, the references and the close. Founders get one partner, start to finish.</p>
+              <div style="display:flex;flex-wrap:wrap;gap:20px 40px;margin-top:8px;padding-top:20px;border-top:1px solid #EEEEEE;">
+                <div><div style="font-size:11px;letter-spacing:.25em;text-transform:uppercase;font-weight:500;color:#777777;">Focus</div><div style="margin-top:8px;font-size:15px;font-weight:600;">Security · AI/ML · Engineering</div></div>
+                <div><div style="font-size:11px;letter-spacing:.25em;text-transform:uppercase;font-weight:500;color:#777777;">Based in</div><div style="margin-top:8px;font-size:15px;font-weight:600;">San Francisco</div></div>
+                <div style="margin-left:auto;align-self:flex-end;"><a href="https://www.linkedin.com/company/foundrtalent/" target="_blank" rel="noopener" style="display:inline-block;padding:10px 0;margin:-10px 0;font-size:14px;font-weight:500;color:#5271FF;">LinkedIn →</a></div>
+              </div>
+            </div>
+          </div>
+        </sc-if>
+      </div>
+      <div onMouseEnter="{{ tm2.open }}" onClick="{{ tm2.toggle }}" style="flex:{{ tm2.flex }};min-width:0;display:flex;flex-wrap:{{ tm2.wrap }};align-items:flex-start;gap:{{ tm2.gap }};padding:{{ tm2.pad }};border:1px solid {{ tm2.border }};border-radius:6px;background:{{ tm2.bg }};box-sizing:border-box;cursor:{{ tm2.cursor }};overflow:hidden;transition:flex .8s cubic-bezier(.2,0,0,1),gap .8s cubic-bezier(.2,0,0,1),padding .8s cubic-bezier(.2,0,0,1),border-color .4s cubic-bezier(.2,0,0,1),background .4s cubic-bezier(.2,0,0,1);">
+        <div style="flex:0 0 {{ tm2.leftBasis }};max-width:100%;min-width:0;display:flex;flex-direction:{{ tm2.leftDir }};gap:16px;transition:flex-basis .8s cubic-bezier(.2,0,0,1);">
+          <div style="aspect-ratio:4/5;width:{{ tm2.photoW }};flex-shrink:0;filter:grayscale(1) contrast(1.05);"><image-slot id="team-robbyn" shape="rounded" radius="4" placeholder="Drop Robbyn's photo"></image-slot></div>
+          <div style="flex:1 1 auto;min-width:0;">
+            <div style="font-size:11px;letter-spacing:.25em;text-transform:uppercase;font-weight:500;color:#777777;">Engineering · GTM · Security</div>
+            <div style="margin-top:12px;font-size:18px;font-weight:600;line-height:1.3;color:#5271FF;">Robbyn Thomas</div>
+            <div style="margin-top:3px;font-size:14px;color:#777777;">Recruiting Partner</div>
+          </div>
+        </div>
+        <sc-if value="{{ tm2.isOpen }}" hint-placeholder-val="{{ false }}">
+          <div style="flex:{{ tm2.bioFlex }};min-width:0;overflow:hidden;align-self:stretch;">
+            <div style="width:{{ teamBioW }};display:flex;flex-direction:column;gap:14px;">
+              <p style="margin:0;font-size:15px;line-height:1.6;color:#333333;text-wrap:pretty;">Robbyn leads engineering and go-to-market searches for seed to Series C companies. Before recruiting she sat on the hiring side of early teams, which is where her habit of writing a narrative on every shortlist comes from.</p>
+              <p style="margin:0;font-size:15px;line-height:1.6;color:#333333;text-wrap:pretty;">She is the partner founders call when the first ten hires need to be right, not fast, and when they need to be both.</p>
+              <div style="display:flex;flex-wrap:wrap;gap:20px 40px;margin-top:8px;padding-top:20px;border-top:1px solid #EEEEEE;">
+                <div><div style="font-size:11px;letter-spacing:.25em;text-transform:uppercase;font-weight:500;color:#777777;">Focus</div><div style="margin-top:8px;font-size:15px;font-weight:600;">Engineering · GTM · Security</div></div>
+                <div><div style="font-size:11px;letter-spacing:.25em;text-transform:uppercase;font-weight:500;color:#777777;">Based in</div><div style="margin-top:8px;font-size:15px;font-weight:600;">Denver</div></div>
+                <div style="margin-left:auto;align-self:flex-end;"><a href="https://www.linkedin.com/company/foundrtalent/" target="_blank" rel="noopener" style="display:inline-block;padding:10px 0;margin:-10px 0;font-size:14px;font-weight:500;color:#5271FF;">LinkedIn →</a></div>
+              </div>
+            </div>
+          </div>
+        </sc-if>
+      </div>
+      <div onMouseEnter="{{ tm3.open }}" onClick="{{ tm3.toggle }}" style="flex:{{ tm3.flex }};min-width:0;display:flex;flex-wrap:{{ tm3.wrap }};align-items:flex-start;gap:{{ tm3.gap }};padding:{{ tm3.pad }};border:1px solid {{ tm3.border }};border-radius:6px;background:{{ tm3.bg }};box-sizing:border-box;cursor:{{ tm3.cursor }};overflow:hidden;transition:flex .8s cubic-bezier(.2,0,0,1),gap .8s cubic-bezier(.2,0,0,1),padding .8s cubic-bezier(.2,0,0,1),border-color .4s cubic-bezier(.2,0,0,1),background .4s cubic-bezier(.2,0,0,1);">
+        <div style="flex:0 0 {{ tm3.leftBasis }};max-width:100%;min-width:0;display:flex;flex-direction:{{ tm3.leftDir }};gap:16px;transition:flex-basis .8s cubic-bezier(.2,0,0,1);">
+          <div style="aspect-ratio:4/5;width:{{ tm3.photoW }};flex-shrink:0;filter:grayscale(1) contrast(1.05);"><image-slot id="team-jill" shape="rounded" radius="4" placeholder="Drop Jill's photo"></image-slot></div>
+          <div style="flex:1 1 auto;min-width:0;">
+            <div style="font-size:11px;letter-spacing:.25em;text-transform:uppercase;font-weight:500;color:#777777;">Engineering · AI/ML</div>
+            <div style="margin-top:12px;font-size:18px;font-weight:600;line-height:1.3;color:#5271FF;">Jill Torres</div>
+            <div style="margin-top:3px;font-size:14px;color:#777777;">Senior Recruiter</div>
+          </div>
+        </div>
+        <sc-if value="{{ tm3.isOpen }}" hint-placeholder-val="{{ false }}">
+          <div style="flex:{{ tm3.bioFlex }};min-width:0;overflow:hidden;align-self:stretch;">
+            <div style="width:{{ teamBioW }};display:flex;flex-direction:column;gap:14px;">
+              <p style="margin:0;font-size:15px;line-height:1.6;color:#333333;text-wrap:pretty;">Jill runs engineering and applied AI searches, from founding engineers to staff and research roles. She came to recruiting from technical hiring at a growth-stage startup, so she reads a GitHub profile as closely as a résumé.</p>
+              <p style="margin:0;font-size:15px;line-height:1.6;color:#333333;text-wrap:pretty;">Candidates describe her the way founders do: direct, well prepared and honest about fit.</p>
+              <div style="display:flex;flex-wrap:wrap;gap:20px 40px;margin-top:8px;padding-top:20px;border-top:1px solid #EEEEEE;">
+                <div><div style="font-size:11px;letter-spacing:.25em;text-transform:uppercase;font-weight:500;color:#777777;">Focus</div><div style="margin-top:8px;font-size:15px;font-weight:600;">Engineering · AI/ML</div></div>
+                <div><div style="font-size:11px;letter-spacing:.25em;text-transform:uppercase;font-weight:500;color:#777777;">Based in</div><div style="margin-top:8px;font-size:15px;font-weight:600;">San Francisco</div></div>
+                <div style="margin-left:auto;align-self:flex-end;"><a href="https://www.linkedin.com/company/foundrtalent/" target="_blank" rel="noopener" style="display:inline-block;padding:10px 0;margin:-10px 0;font-size:14px;font-weight:500;color:#5271FF;">LinkedIn →</a></div>
+              </div>
+            </div>
+          </div>
+        </sc-if>
+      </div>
+    </div>
+  </section>
+
+  <footer data-footer="" style="max-width:1080px;margin:clamp(72px,12vw,120px) auto 0;padding:32px 24px 40px;border-top:1px solid #EEEEEE;display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap;">
+    <img src="assets/logo-black.png" alt="foundr." style="height:18px;width:auto;display:block;">
+    <span style="font-size:11px;letter-spacing:.25em;text-transform:uppercase;font-weight:500;color:#777777;text-align:center;">Connecting the brightest minds with the boldest ventures</span>
+    <span style="font-size:13px;color:#777777;">© 2026 foundr</span>
+  </footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;motion&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Motion&quot;},&quot;loxoEndpoint&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Loxo&quot;},&quot;loxoSlug&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;foundr&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Loxo&quot;}}">
+class Component extends DCLogic {
+  state = { engaged: 0, svc: null, member: null, wallA: [0,1,2,3,4,5], wallB: [0,1,2,3,4,5], wallOn: Array(6).fill('a'), wallPhase: 'rest', bioW: 320, cardW: 328, sibW: 164, narrow: false, cardH: 300, dragging: false, navOpen: false, dotsHover: false, photoFrac: 0.3, photoPos: 0, slide: 0, jobs: [], flipped: null, paused: false, spread: false, lifted: null };
+  profileData = [
+    { ini: 'SE', title: 'Staff Software Engineer', meta: 'Candidate #2281 · New York · Remote', badge: 'Referenced', badgeVariant: 'accent', stats: [{ label: 'Years', n: 11 }, { label: 'Comp', prefix: '$', n: 310, suffix: 'k' }, { label: 'Team led', n: 14 }], highlight: 'Rebuilt the payments core at a Series C fintech. p99 latency down 70% while volume tripled.', footer: '3 references checked · Available in 4 weeks' },
+    { ini: 'HS', title: 'Head of Security', meta: 'Candidate #3390 · London · Open to relocate', badge: 'Referenced', badgeVariant: 'accent', stats: [{ label: 'Years', n: 14 }, { label: 'Comp', prefix: '$', n: 340, suffix: 'k' }, { label: 'Audits', n: 9 }], highlight: 'Took a Series B from no security function to SOC 2 Type II and FedRAMP-ready in 11 months.', footer: '4 references checked · Available in 6 weeks' },
+    { ini: 'AI', title: 'AI Engineer', meta: 'Candidate #5108 · San Francisco', badge: 'Interviewing', badgeVariant: 'neutral', stats: [{ label: 'Years', n: 6 }, { label: 'Comp', prefix: '$', n: 265, suffix: 'k' }, { label: 'Papers', n: 3 }], highlight: 'Shipped a fine-tuned model that replaced a $2M a year vendor contract. Two first-author papers at NeurIPS.', footer: '2 references checked · Available' },
+    { ini: 'GT', title: 'Founding GTM', meta: 'Candidate #1974 · Austin · Remote', badge: 'Referenced', badgeVariant: 'accent', stats: [{ label: 'Years', n: 9 }, { label: 'Comp', prefix: '$', n: 240, suffix: 'k' }, { label: 'ARR', prefix: '$', n: 18, suffix: 'M' }], highlight: 'First sales hire at two companies. Took one from zero to $12M ARR before the Series B.', footer: '3 references checked · Available in 2 weeks' },
+    { ini: 'FD', title: 'Forward Deployed Engineer', meta: 'Candidate #4127 · San Francisco · Open to relocate', badge: 'Referenced', badgeVariant: 'accent', stats: [{ label: 'Years', n: 8 }, { label: 'Comp', prefix: '$', n: 285, suffix: 'k' }, { label: 'Deploys', n: 23 }], highlight: 'Led the first three Fortune 100 deployments at a Series B AI company, from pilot to $4M contract.', footer: '2 references checked · Available' }
+  ];
+  dropProfiles = () => this.setState({ lifted: null });
+  watchProfiles = () => { const el = this.profileRef.current; if (!el) { this.profileWait = setTimeout(this.watchProfiles, 300); return; } if (!this.motion || typeof IntersectionObserver === 'undefined') { this.setState({ spread: true, settled: true }); return; } this.profileIO = new IntersectionObserver(en => { if (en.some(x => x.isIntersecting)) { this.setState({ spread: true }); this.settleT = setTimeout(() => this.setState({ settled: true }), 1300); this.profileIO.disconnect(); } }, { threshold: 0.3 }); this.profileIO.observe(el); };
+  pauseMarquee = () => this.setState({ paused: true });
+  pauseWall = () => { this.wallPaused = true; };
+  resumeWall = () => { this.wallPaused = false; };
+  logos = ['abridge','alysio','anduril','artisan','atob','banquet-health','carta','circle','cognition','databricks','david-ai','discord','fleetworks','front','gleen','happyrobot','justai','monad','nebulock','openevidence','opine','palantir','phantom','prophet','raindrop','ritual','tools-for-humanity','replit','aiuc','halluminate','lindy','decagon'];
+  wallSlots = 6;
+  wallTick = () => {
+    if (this.wallPaused || !this.motion || document.hidden || this.wallBusy) return;
+    const { wallA, wallB, wallOn } = this.state;
+    const shown = new Set(wallOn.map((k, s) => k === 'a' ? wallA[s] : wallB[s]));
+    const pool = this.logos.map((_, i) => i).filter(i => !shown.has(i));
+    for (let i = pool.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [pool[i], pool[j]] = [pool[j], pool[i]]; }
+    const a = wallA.slice(), b = wallB.slice(), on = wallOn.slice();
+    for (let s = 0; s < this.wallSlots; s++) { const pick = pool[s]; if (on[s] === 'a') { b[s] = pick; on[s] = 'b'; } else { a[s] = pick; on[s] = 'a'; } }
+    this.wallBusy = true;
+    this.setState({ wallA: a, wallB: b, wallOn: on, wallPhase: 'roll' });
+    this.wallReset = setTimeout(() => { this.wallBusy = false; this.setState({ wallPhase: 'rest' }); }, 1000);
+  };
+  openNav = () => this.setState({ navOpen: true });
+  svcLeave = () => this.setState({ svc: null });
+  dotsEnter = () => this.setState({ dotsHover: true });
+  dotsLeave = () => this.setState({ dotsHover: false });
+  closeNav = () => this.setState({ navOpen: false });
+  teamRef = React.createRef();
+  closeMember = () => this.setState({ member: null });
+  teamLeave = e => { const el = this.teamRef.current; const to = e.relatedTarget; if (el && to && el.contains(to)) return; if (typeof matchMedia !== 'undefined' && matchMedia('(hover: none)').matches) return; this.closeMember(); };
+  profileRef = React.createRef();
+  measureTeam = () => { const el = this.teamRef.current; if (!el) return; const W = el.clientWidth; const narrow = W < 800; const r = Math.round((W - 48) / 3), s2 = Math.round(Math.max(120, (W - 48) / 6)); const p = this.profileRef.current && this.profileRef.current.firstElementChild; const cardH = p && p.offsetHeight ? p.offsetHeight : this.state.cardH; if (narrow !== this.state.narrow || r !== this.state.cardW || s2 !== this.state.sibW || cardH !== this.state.cardH) this.setState({ narrow, cardW: r, sibW: s2, cardH }); };
+  openMember = i => { const el = this.teamRef.current; let bioW = 320; if (el) { const W = el.clientWidth; const sib = Math.max(120, (W - 48) / 6); const card = W - 48 - 2 * sib; bioW = Math.max(180, Math.round(card - 40 - 160 - 28)); } this.setState({ member: i, bioW }); };
+  goTo = id => e => { e.preventDefault(); this.closeNav(); const el = document.getElementById(id + '-label') || document.getElementById(id); if (!el) return; const top = el.getBoundingClientRect().top + window.scrollY - 88; setTimeout(() => window.scrollTo({ top, behavior: this.motion ? 'smooth' : 'auto' }), 120); };
+  goTeam = this.goTo('team');
+  goEngage = this.goTo('engage');
+  goServices = e => { e.preventDefault(); this.closeNav(); const el = document.getElementById('services-label') || document.getElementById('services'); if (!el) return; const top = el.getBoundingClientRect().top + window.scrollY - 88; setTimeout(() => window.scrollTo({ top, behavior: this.motion ? 'smooth' : 'auto' }), 120); };
+  onKey = e => { if (e.key !== 'Escape') return; if (this.state.navOpen) this.closeNav(); else if (this.state.member !== null) this.closeMember(); };
+  photosRef = React.createRef();
+  photosTrackRef = React.createRef();
+  photosScroll = () => { const el = this.photosRef.current; if (!el) return; const max = el.scrollWidth - el.clientWidth; const frac = el.scrollWidth ? el.clientWidth / el.scrollWidth : 1; const pos = max > 0 ? el.scrollLeft / max : 0; if (Math.abs(frac - this.state.photoFrac) > 0.002 || Math.abs(pos - this.state.photoPos) > 0.002) this.setState({ photoFrac: frac, photoPos: pos }); };
+  photosBy = dir => { const el = this.photosRef.current; if (!el) return; el.scrollBy({ left: dir * el.clientWidth * 0.8, behavior: this.motion ? 'smooth' : 'auto' }); };
+  photosPrev = () => this.photosBy(-1);
+  photosNext = () => this.photosBy(1);
+  photosTrackClick = e => { const el = this.photosRef.current, t = this.photosTrackRef.current; if (!el || !t) return; const r = t.getBoundingClientRect(); const p = (e.clientX - r.left) / r.width; const max = el.scrollWidth - el.clientWidth; el.scrollTo({ left: Math.max(0, Math.min(1, (p - this.state.photoFrac / 2) / (1 - this.state.photoFrac))) * max, behavior: this.motion ? 'smooth' : 'auto' }); };
+  photosDown = e => { const el = this.photosRef.current; if (!el || e.pointerType !== 'mouse') return; this.drag = { x: e.clientX, left: el.scrollLeft, moved: false }; el.setPointerCapture(e.pointerId); };
+  photosMove = e => { const el = this.photosRef.current; if (!el || !this.drag) return; const dx = e.clientX - this.drag.x; if (!this.drag.moved && Math.abs(dx) > 3) { this.drag.moved = true; this.setState({ dragging: true }); } el.scrollLeft = this.drag.left - dx; };
+  photosUp = () => { if (!this.drag) return; this.drag = null; if (this.state.dragging) this.setState({ dragging: false }); };
+  resumeMarquee = () => this.setState({ paused: false, flipped: null });
+  async loadJobs() {
+    const sample = async () => { const r = await fetch('jobs.json'); return (await r.json()).map(j => ({ ...j, id: String(j.id), href: 'Jobs.dc.html#role-' + j.id })); };
+    try {
+      const loxo = await import('./loxo.js');
+      const cfg = { slug: (this.props.loxoSlug || '').trim() || undefined, endpoint: (this.props.loxoEndpoint || '').trim() || undefined };
+      const live = await loxo.fetchJobs(cfg);
+      if (!live.length) throw new Error('no published roles');
+      this.setState({ jobs: live.slice(0, 12).map(j => ({ ...j, company: j.companyLabel, href: 'Jobs.dc.html#role-' + j.id })) });
+    } catch (e) {
+      console.warn('Loxo ticker fell back to sample roles: ' + (e && e.message));
+      try { this.setState({ jobs: await sample() }); } catch (e2) { console.warn('jobs.json failed', e2); }
+    }
+  }
+  slideCount = 12;
+  carouselRef = React.createRef();
+  onCarouselScroll = () => {
+    const el = this.carouselRef.current; if (!el) return;
+    const i = Math.round(el.scrollLeft / (el.firstElementChild.offsetWidth + 16));
+    if (i !== this.state.slide) this.setState({ slide: i });
+  };
+  goSlide = i => {
+    const el = this.carouselRef.current; if (!el) return;
+    const n = (i + this.slideCount) % this.slideCount;
+    el.scrollTo({ left: n * (el.firstElementChild.offsetWidth + 16), behavior: this.motion ? 'smooth' : 'auto' });
+  };
+  prevSlide = () => this.goSlide(this.state.slide - 1);
+  nextSlide = () => this.goSlide(this.state.slide + 1);
+  get motion() {
+    const reduced = typeof matchMedia !== 'undefined' && matchMedia('(prefers-reduced-motion: reduce)').matches;
+    return (this.props.motion ?? true) && !reduced;
+  }
+  componentDidMount() {
+    const hash = location.hash.replace('#', '');
+    if (hash === 'team' || hash === 'services' || hash === 'engage') {
+      const go = () => { const el = document.getElementById(hash + '-label') || document.getElementById(hash); if (!el) return false; document.querySelectorAll('[data-reveal]').forEach(s => { s.style.transition = 'none'; }); window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 88, behavior: 'auto' }); requestAnimationFrame(() => document.querySelectorAll('[data-reveal]').forEach(s => { s.style.transition = ''; })); return true; };
+      requestAnimationFrame(() => { if (!go()) setTimeout(go, 300); setTimeout(go, 900); });
+    }
+    window.addEventListener('keydown', this.onKey);
+    window.addEventListener('resize', this.photosScroll);
+    window.addEventListener('resize', this.measureTeam);
+    requestAnimationFrame(() => { this.photosScroll(); this.measureTeam(); }); this.measureLater = setTimeout(this.measureTeam, 1200);
+    this.loadJobs();
+    this.watchProfiles();
+    this.logos.forEach(n => { const im = new Image(); im.src = 'assets/clients/' + n + '.png'; });
+    this.wallTimer = setInterval(this.wallTick, 3400);
+    const motion = this.motion;
+    const els = document.querySelectorAll('[data-reveal]');
+    const counts = document.querySelectorAll('[data-count]');
+    const bars = document.querySelectorAll('[data-bar]');
+    if (!motion) return;
+    els.forEach(el => { el.style.opacity = '0'; el.style.transform = 'translateY(18px)'; });
+    counts.forEach(c => { c.textContent = this.fmt(0, c); });
+    bars.forEach(b => { b.style.width = '0%'; });
+    this.io = new IntersectionObserver(entries => {
+      entries.forEach(en => {
+        if (!en.isIntersecting) return;
+        const el = en.target;
+        el.style.opacity = '1'; el.style.transform = 'none';
+        el.querySelectorAll('[data-reveal-child]').forEach(c => { c.style.opacity = '1'; c.style.transform = 'none'; });
+        el.querySelectorAll('[data-count]').forEach(c => this.countUp(c));
+        el.querySelectorAll('[data-bar]').forEach(b => { b.style.width = b.dataset.bar; });
+        this.io.unobserve(el);
+      });
+    }, { threshold: 0.15 });
+    const reveal = el => {
+      el.style.opacity = '1'; el.style.transform = 'none';
+      el.querySelectorAll('[data-reveal-child]').forEach(c => { c.style.opacity = '1'; c.style.transform = 'none'; });
+      el.querySelectorAll('[data-count]').forEach(c => this.countUp(c));
+      el.querySelectorAll('[data-bar]').forEach(b => { b.style.width = b.dataset.bar; });
+      this.io.unobserve(el);
+    };
+    els.forEach(el => {
+      const r = el.getBoundingClientRect();
+      if (r.top < innerHeight && r.bottom > 0) reveal(el); else this.io.observe(el);
+    });
+    this.fallback = setTimeout(() => els.forEach(el => { if (el.style.opacity === '0') reveal(el); }), 2500);
+  }
+  componentWillUnmount() { window.removeEventListener('keydown', this.onKey); window.removeEventListener('resize', this.photosScroll); window.removeEventListener('resize', this.measureTeam); clearInterval(this.timer); clearInterval(this.wallTimer); clearTimeout(this.wallReset); clearTimeout(this.profileWait); clearTimeout(this.settleT); if (this.profileIO) this.profileIO.disconnect(); clearTimeout(this.fallback); clearTimeout(this.measureLater); this.io && this.io.disconnect(); }
+  fmt(n, el) { const d = +(el && el.dataset.dec || 0); return d ? n.toFixed(d) : Math.round(n).toLocaleString('en-US'); }
+  countUp(el) {
+    const target = parseFloat(el.dataset.count), t0 = performance.now(), dur = 1100;
+    const step = t => {
+      const p = Math.min(1, (t - t0) / dur), e = 1 - Math.pow(1 - p, 3);
+      el.textContent = this.fmt(target * e, el);
+      if (p < 1) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  }
+  renderVals() {
+    const motion = this.motion;
+    const svcs = [0, 1, 2, 3].map(i => { const on = this.state.svc === i; return { enter: () => this.setState({ svc: i }), bg: on ? '#5271FF' : '#fff', dot: on ? '#fff' : '#5271FF', muted: on ? 'rgba(255,255,255,.75)' : '#777777', ink: on ? '#fff' : '#000', body: on ? 'rgba(255,255,255,.88)' : '#555555', dotScale: on ? 1 : 0, dotGap: on ? '10px' : '0px', tagBorder: on ? 'rgba(255,255,255,.55)' : '#E5E5E5', tagColor: on ? '#fff' : '#555555' }; });
+    const team = [0, 1, 2].map(i => { const on = this.state.member === i, nar = this.state.narrow; return { isOpen: on, flex: nar ? '1 1 100%' : (on ? 4 : 1) + ' 1 0px', wrap: nar ? 'wrap' : 'nowrap', gap: on ? (nar ? '20px' : '28px') : '0px', pad: on ? (nar ? '16px' : '20px') : '0px', border: on ? '#E5E5E5' : 'transparent', bg: on ? '#FAFAFA' : 'transparent', cursor: on ? 'default' : 'pointer', leftBasis: nar ? '100%' : (on ? '160px' : (this.state.member !== null ? this.state.sibW : this.state.cardW) + 'px'), leftDir: nar ? 'row' : 'column', photoW: nar ? '112px' : '100%', bioFlex: nar ? '1 1 100%' : '1 1 0px', open: () => { if (!on) this.openMember(i); }, close: this.closeMember, toggle: () => { if (typeof matchMedia !== 'undefined' && matchMedia('(hover: none)').matches) { if (on) this.closeMember(); else this.openMember(i); } } }; });
+    const engage = [0, 1, 2].map(i => { const open = this.state.engaged === i; const touch = typeof matchMedia !== 'undefined' && matchMedia('(hover: none)').matches; return { enter: () => this.setState({ engaged: i }), toggle: () => this.setState(s => ({ engaged: touch && s.engaged === i ? null : i })), openAttr: open ? 'true' : 'false', plusRot: open ? '45deg' : '0deg', bg: open ? '#FAFAFA' : '#fff', listMax: open ? '400px' : '0px', listOp: open ? 1 : 0 }; });
+    const { spread, lifted } = this.state, pn = this.profileData.length;
+    const profiles = this.profileData.map((c, i) => {
+      const y = spread ? i * 72 : (i - (pn - 1)) * 14 + (pn - 1) * 14;
+      const sc = spread ? 1 : 1 - (pn - 1 - i) * 0.03;
+      const on = spread && lifted === i;
+      const delay = spread && !this.state.settled ? i * 70 : 0;
+      const transition = `transform .8s cubic-bezier(.2,0,0,1) ${delay}ms, box-shadow .35s cubic-bezier(.2,0,0,1), border-color .35s cubic-bezier(.2,0,0,1)`;
+      return { ...c, transition, border: on ? '#CCCCCC' : '#E5E5E5', isSE: c.ini === 'SE', isHS: c.ini === 'HS', isAI: c.ini === 'AI', isFD: c.ini === 'FD', isGT: c.ini === 'GT', iconLabel: ({ SE: 'Engineering', HS: 'Security', AI: 'AI/ML', FD: 'Forward deployed engineering', GT: 'GTM' })[c.ini], transform: `translate(0px, ${on ? y - 6 : y}px) scale(${on ? 1.012 : sc})`, z: on ? pn + 1 : i + 1, shadow: on ? '0 12px 40px rgba(0,0,0,.18)' : '0 1px 3px rgba(0,0,0,.06)', lift: () => spread && this.setState({ lifted: i }), drop: () => this.setState(s => (s.lifted === i ? { lifted: null } : null)) };
+    });
+    const jobs = this.state.jobs;
+    const marqueeJobs = jobs.concat(jobs).map((j, i) => ({
+      ...j,
+      transform: this.state.flipped === i ? 'rotateY(180deg)' : 'rotateY(0deg)',
+      enter: () => this.setState({ flipped: i }),
+      leave: () => this.setState(s => (s.flipped === i ? { flipped: null } : null)),
+      toggle: () => this.setState(s => ({ flipped: s.flipped === i ? null : i }))
+    }));
+    const marqueeAnim = motion && jobs.length ? `marquee ${jobs.length * 7}s linear infinite` : 'none';
+    const marqueeState = this.state.paused ? 'paused' : 'running';
+    const src = i => 'assets/clients/' + this.logos[i] + '.png';
+    const nm = i => this.logos[i].replace(/-/g, ' ');
+    const rolling = this.state.wallPhase === 'roll';
+    const wall = this.state.wallOn.map((k, s) => { const ai = this.state.wallA[s], bi = this.state.wallB[s], aOn = k === 'a'; const ease = 'transform .8s cubic-bezier(.2,0,0,1)'; const y = on => on ? '0%' : (rolling ? '-100%' : '100%'); const t = on => (on || rolling) ? ease : 'none'; return { ready: true, a: src(ai), aName: nm(ai), aY: y(aOn), aT: t(aOn), b: src(bi), bName: nm(bi), bY: y(!aOn), bT: t(!aOn) }; });
+    return { svc1: svcs[0], svc2: svcs[1], svc3: svcs[2], svc4: svcs[3], svcLeave: this.svcLeave, e1: engage[0], e2: engage[1], e3: engage[2], slideNow: String(this.state.slide + 1).padStart(2, '0'), slideProgress: ((this.state.slide + 1) / this.slideCount * 100).toFixed(1) + '%', profiles, dropProfiles: this.dropProfiles, profileRef: this.profileRef, teamLeave: this.teamLeave, wall, pauseWall: this.pauseWall, resumeWall: this.resumeWall, navOpen: this.state.navOpen, navOpenAttr: this.state.navOpen ? 'true' : 'false', openNav: this.openNav, closeNav: this.closeNav, dotsEnter: this.dotsEnter, dotsLeave: this.dotsLeave, dotsRotate: this.state.dotsHover && this.motion ? '90deg' : '0deg', goServices: this.goServices, goTeam: this.goTeam, goEngage: this.goEngage, tm1: team[0], tm2: team[1], tm3: team[2], teamRef: this.teamRef, teamBioW: this.state.narrow ? '100%' : this.state.bioW + 'px', photosRef: this.photosRef, photosTrackRef: this.photosTrackRef, photosScroll: this.photosScroll, photosPrev: this.photosPrev, photosNext: this.photosNext, photosTrackClick: this.photosTrackClick, photosThumbWidth: (this.state.photoFrac * 100).toFixed(2) + '%', photosThumbLeft: (this.state.photoPos * (1 - this.state.photoFrac) * 100).toFixed(2) + '%', photosPct: Math.round(this.state.photoPos * 100), photosDown: this.photosDown, photosMove: this.photosMove, photosUp: this.photosUp, photosCursor: this.state.dragging ? 'grabbing' : 'grab', stackHeight: (this.state.spread ? 288 + this.state.cardH : this.state.cardH + 60) + 'px', marqueeJobs, marqueeAnim, marqueeState, pauseMarquee: this.pauseMarquee, resumeMarquee: this.resumeMarquee, carouselRef: this.carouselRef, onCarouselScroll: this.onCarouselScroll, prevSlide: this.prevSlide, nextSlide: this.nextSlide };
+  }
+}
+</script>
+</body>
+</html>

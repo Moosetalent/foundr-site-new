@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="_ds/foundr-design-system-7f81c1d8-2a00-4ec1-a96b-467e21c6bd78/tokens/fonts.css">
+  <link rel="stylesheet" href="_ds/foundr-design-system-7f81c1d8-2a00-4ec1-a96b-467e21c6bd78/tokens/colors.css">
+  <link rel="stylesheet" href="_ds/foundr-design-system-7f81c1d8-2a00-4ec1-a96b-467e21c6bd78/tokens/typography.css">
+  <link rel="stylesheet" href="_ds/foundr-design-system-7f81c1d8-2a00-4ec1-a96b-467e21c6bd78/tokens/spacing.css">
+  <link rel="stylesheet" href="_ds/foundr-design-system-7f81c1d8-2a00-4ec1-a96b-467e21c6bd78/tokens/base.css">
+  <link rel="stylesheet" href="_ds/foundr-design-system-7f81c1d8-2a00-4ec1-a96b-467e21c6bd78/styles.css">
+  <script src="_ds/foundr-design-system-7f81c1d8-2a00-4ec1-a96b-467e21c6bd78/_ds_bundle.js"></script>
+  <style>
+    html,body{margin:0;background:#fff;color:#000;font-family:'Archivo',Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased}
+    a{color:#000;text-decoration:none}a:hover{color:#3D5CF0}
+    [data-drawer]:not([data-open="true"]){opacity:0;transform:translateY(-8px);pointer-events:none}
+    [data-scrim]:not([data-open="true"]){opacity:0;pointer-events:none}
+    @keyframes feedIn{from{opacity:0;transform:translateY(-10px)}to{opacity:1;transform:none}}
+    @media (max-width:760px){[data-contact-grid]{grid-template-columns:minmax(0,1fr) !important;gap:8px !important}[data-contact-aside]{order:2;margin-top:24px !important}[data-contact-aside] > div:first-child{border-top:1px solid #E5E5E5;padding-top:28px !important}}
+    @media (max-width:640px){
+      [data-scrim]{background:rgba(255,255,255,.94) !important}
+      [data-drawer]{left:24px;right:24px !important;align-items:flex-start !important}
+      [data-drawer] nav{align-items:flex-start !important}
+      [data-drawer] a{font-size:36px !important;padding:10px 0 !important}
+      [data-footer]{flex-direction:column;align-items:flex-start !important;gap:14px !important}
+      [data-footer] span{text-align:left !important}
+      [data-chip]{height:44px !important;font-size:12px !important}
+      input,select,textarea{font-size:16px !important}
+      [data-contact-aside]{order:2}
+      [data-contact-aside] > div:last-child{border-bottom:0}
+      [data-form-row]{grid-template-columns:minmax(0,1fr) !important}
+    }
+    @media (pointer: coarse){
+      [data-chip]{height:44px !important;font-size:12px !important}
+      input,select,textarea{font-size:16px !important}
+    }
+    @media (prefers-reduced-motion: reduce){*{animation:none !important;transition:none !important}}
+  </style>
+</helmet>
+
+<div style="min-height:100vh;background:#fff;color:#000;font-family:'Archivo',Helvetica,Arial,sans-serif;display:flex;flex-direction:column;">
+
+  <nav style="max-width:1080px;width:100%;box-sizing:border-box;margin:0 auto;padding:22px 24px;display:flex;align-items:center;justify-content:space-between;">
+    <a href="Foundr Landing.dc.html" style="display:block;"><img src="assets/logo-black.png" alt="foundr." style="height:32px;width:auto;display:block;"></a>
+    <button type="button" aria-label="Open menu" aria-expanded="{{ navOpen }}" onClick="{{ openNav }}" onMouseEnter="{{ dotsEnter }}" onMouseLeave="{{ dotsLeave }}" onFocus="{{ dotsEnter }}" onBlur="{{ dotsLeave }}" style="width:44px;height:44px;display:flex;align-items:center;justify-content:center;background:none;border:0;border-radius:4px;cursor:pointer;padding:0;transition:background .15s cubic-bezier(.2,0,0,1);" style-hover="background:#F5F5F5;">
+      <span style="display:flex;align-items:center;justify-content:center;gap:5px;transform:rotate({{ dotsRotate }});transition:transform .25s cubic-bezier(.2,0,0,1);">
+        <span style="width:6px;height:6px;border-radius:50%;background:#5271FF;"></span>
+        <span style="width:6px;height:6px;border-radius:50%;background:#5271FF;"></span>
+        <span style="width:6px;height:6px;border-radius:50%;background:#5271FF;"></span>
+      </span>
+    </button>
+  </nav>
+
+  <div data-scrim data-open="{{ navOpenAttr }}" onClick="{{ closeNav }}" style="position:fixed;inset:0;background:transparent;z-index:40;"></div>
+  <aside data-drawer data-open="{{ navOpenAttr }}" aria-label="Site menu" style="position:fixed;top:88px;right:max(24px,calc((100vw - 1080px) / 2 + 24px - 48px));z-index:50;display:flex;flex-direction:column;align-items:flex-end;transition:opacity .3s cubic-bezier(.2,0,0,1),transform .35s cubic-bezier(.2,0,0,1);">
+    <nav style="display:flex;flex-direction:column;align-items:flex-end;gap:4px;">
+      <a href="Foundr Landing.dc.html" style="display:block;padding:8px 0;font-size:28px;line-height:1.1;letter-spacing:-0.02em;font-weight:600;">Home</a>
+      <a href="Foundr Landing.dc.html#services" style="display:block;padding:8px 0;font-size:28px;line-height:1.1;letter-spacing:-0.02em;font-weight:600;">About</a>
+      <a href="Jobs.dc.html" style="display:block;padding:8px 0;font-size:28px;line-height:1.1;letter-spacing:-0.02em;font-weight:600;">Jobs</a>
+      <a href="Services.dc.html" style="display:block;padding:8px 0;font-size:28px;line-height:1.1;letter-spacing:-0.02em;font-weight:600;">Services</a>
+      <a href="Foundr Landing.dc.html#team" style="display:block;padding:8px 0;font-size:28px;line-height:1.1;letter-spacing:-0.02em;font-weight:600;">Team</a>
+      <a href="Contact.dc.html" onClick="{{ closeNav }}" aria-current="page" style="display:block;padding:8px 0;font-size:28px;line-height:1.1;letter-spacing:-0.02em;font-weight:600;color:#5271FF;">Contact</a>
+    </nav>
+  </aside>
+
+  <header data-screen-label="Contact header" style="max-width:1080px;width:100%;box-sizing:border-box;margin:0 auto;padding:clamp(48px,8vw,72px) 24px clamp(40px,6vw,56px);">
+    <div style="font-size:11px;letter-spacing:.25em;text-transform:uppercase;font-weight:500;color:#5271FF;margin-bottom:24px;">◆ Get in touch</div>
+    <h1 style="margin:0;font-size:clamp(40px,6vw,72px);line-height:1.04;letter-spacing:-0.03em;font-weight:600;text-wrap:balance;max-width:880px;">Tell us about the <em style="font-style:italic;font-weight:500;color:#5271FF;">role</em><span aria-label="." style="display:inline-block;width:.17em;height:.17em;border-radius:50%;background:#5271FF;margin-left:.07em;vertical-align:baseline;"></span></h1>
+  </header>
+
+  <main data-contact-grid="" data-screen-label="Contact" style="max-width:1080px;width:100%;box-sizing:border-box;margin:0 auto;padding:0 24px;flex:1;display:grid;grid-template-columns:minmax(0,5fr) minmax(0,8fr);gap:40px clamp(48px,8vw,112px);align-items:start;">
+    <div style="grid-column:1 / -1;height:1px;background:#E5E5E5;"></div>
+
+    <aside data-contact-aside="" style="display:flex;flex-direction:column;">
+      <div style="display:flex;flex-direction:column;gap:10px;padding:0 0 28px;border-bottom:1px solid #EEEEEE;">
+        <div style="font-size:11px;letter-spacing:.25em;text-transform:uppercase;font-weight:500;color:#777777;">Email</div>
+        <a href="mailto:Careers@foundr.xyz" style="display:inline-block;padding:8px 0;margin:-8px 0;font-size:15px;font-weight:500;font-size:17px;">Careers@foundr.xyz</a>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:10px;padding:28px 0;border-bottom:1px solid #EEEEEE;">
+        <div style="font-size:11px;letter-spacing:.25em;text-transform:uppercase;font-weight:500;color:#777777;">Offices</div>
+        <div style="display:flex;flex-direction:column;gap:6px;font-size:15px;line-height:1.5;">
+          <div><span style="font-weight:500;">Denver</span><span style="color:#777777;"> · Cherry Creek</span></div>
+          <div><span style="font-weight:500;">San Francisco</span><span style="color:#777777;"> · Mission Bay</span></div>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:10px;padding:28px 0;border-bottom:1px solid #EEEEEE;">
+        <div style="font-size:11px;letter-spacing:.25em;text-transform:uppercase;font-weight:500;color:#777777;">Follow</div>
+        <div style="display:flex;flex-direction:column;gap:0;margin:-8px 0;">
+          <a href="https://www.linkedin.com/company/foundrtalent/" target="_blank" rel="noopener" style="display:inline-block;padding:8px 0;font-size:15px;font-weight:500;align-self:flex-start;">LinkedIn ↗</a>
+          <a href="https://x.com/talentfoundr" target="_blank" rel="noopener" style="display:inline-block;padding:8px 0;font-size:15px;font-weight:500;align-self:flex-start;">X ↗</a>
+          <a href="#" style="display:inline-block;padding:8px 0;font-size:15px;font-weight:500;align-self:flex-start;">Substack ↗</a>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:10px;padding:28px 0;">
+        <div style="font-size:11px;letter-spacing:.25em;text-transform:uppercase;font-weight:500;color:#777777;">Prefer to talk</div>
+        <div style="font-size:20px;font-weight:600;letter-spacing:-0.01em;line-height:1.2;">Book 30 minutes with a <em style="font-style:italic;font-weight:500;color:#5271FF;">partner</em><span aria-label="." style="display:inline-block;width:.17em;height:.17em;border-radius:50%;background:#5271FF;margin-left:.07em;vertical-align:baseline;"></span></div>
+        <p style="margin:0;font-size:15px;line-height:1.6;color:#555555;text-wrap:pretty;">No pitch — just a conversation about the role and whether we're the right fit.</p>
+        <a href="#" style="display:inline-block;padding:8px 0;margin:-8px 0;font-size:15px;font-weight:500;color:#5271FF;margin-top:0;">Book a call →</a>
+      </div>
+    </aside>
+
+    <section id="form" style="min-width:0;">
+      <sc-if value="{{ notSent }}" hint-placeholder-val="{{ true }}">
+        <div style="display:flex;flex-direction:column;gap:20px;">
+          <div data-form-row="" style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px;">
+            <x-import component-from-global-scope="FoundrDesignSystem_7f81c1.Input" label="Name" placeholder="Your name" value="{{ fName }}" on-change="{{ setName }}" error="{{ errName }}" hint-size="100%,62px"></x-import>
+            <x-import component-from-global-scope="FoundrDesignSystem_7f81c1.Input" label="Company" placeholder="Company" value="{{ fCompany }}" on-change="{{ setCompany }}" hint-size="100%,62px"></x-import>
+          </div>
+          <div data-form-row="" style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px;">
+            <x-import component-from-global-scope="FoundrDesignSystem_7f81c1.Input" label="Email" type="email" placeholder="you@company.com" value="{{ fEmail }}" on-change="{{ setEmail }}" error="{{ errEmail }}" hint-size="100%,62px"></x-import>
+            <x-import component-from-global-scope="FoundrDesignSystem_7f81c1.Select" label="Stage" options="{{ stages }}" value="{{ fStage }}" on-change="{{ setStage }}" hint-size="100%,62px"></x-import>
+          </div>
+          <x-import component-from-global-scope="FoundrDesignSystem_7f81c1.Input" label="The role" placeholder="e.g. Head of Security, San Francisco" value="{{ fRole }}" on-change="{{ setRole }}" error="{{ errRole }}" hint-size="100%,62px"></x-import>
+          <label style="display:flex;flex-direction:column;gap:6px;">
+            <span style="font-size:11px;letter-spacing:.25em;text-transform:uppercase;font-weight:500;color:#777777;">Tell us more</span>
+            <textarea value="{{ fMore }}" onChange="{{ setMore }}" placeholder="Stage, team, timeline, what great looks like." rows="5" style="width:100%;box-sizing:border-box;padding:10px 12px;border:1px solid #E5E5E5;border-radius:4px;font-family:inherit;font-size:14px;line-height:1.5;color:#000;background:#fff;resize:vertical;outline:none;transition:border-color .15s cubic-bezier(.2,0,0,1),box-shadow .15s cubic-bezier(.2,0,0,1);" style-focus="border-color:#5271FF;box-shadow:0 0 0 3px rgba(82,113,255,.12);"></textarea>
+          </label>
+          <div style="display:flex;justify-content:flex-end;align-items:center;gap:16px;padding-top:12px;">
+            <x-import component-from-global-scope="FoundrDesignSystem_7f81c1.Button" variant="primary" size="md" on-click="{{ submit }}" hint-size="auto,40px">Send brief →</x-import>
+          </div>
+        </div>
+      </sc-if>
+      <sc-if value="{{ sent }}" hint-placeholder-val="{{ false }}">
+        <div style="display:flex;flex-direction:column;gap:14px;padding:8px 0 40px;animation:feedIn .5s cubic-bezier(.2,0,0,1) both;">
+          <span style="width:10px;height:10px;border-radius:50%;background:#5271FF;"></span>
+          <div style="font-size:28px;font-weight:600;letter-spacing:-0.02em;line-height:1.15;">Brief received<span aria-label="." style="display:inline-block;width:.17em;height:.17em;border-radius:50%;background:#5271FF;margin-left:.07em;vertical-align:baseline;"></span></div>
+          <p style="margin:0;font-size:16px;line-height:1.6;color:#555555;max-width:480px;text-wrap:pretty;">Thanks, {{ sentName }}. A partner will read it and come back to you shortly.</p>
+          <a href="Jobs.dc.html" style="display:inline-block;padding:8px 0;margin:-8px 0;font-size:15px;font-weight:500;color:#5271FF;margin-top:0;">See open roles →</a>
+        </div>
+      </sc-if>
+    </section>
+  </main>
+
+  <footer data-footer="" style="max-width:1080px;width:100%;box-sizing:border-box;margin:clamp(72px,12vw,120px) auto 0;padding:32px 24px 40px;border-top:1px solid #EEEEEE;display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap;">
+    <img src="assets/logo-black.png" alt="foundr." style="height:18px;width:auto;display:block;">
+    <span style="font-size:11px;letter-spacing:.25em;text-transform:uppercase;font-weight:500;color:#777777;text-align:center;">Connecting the brightest minds with the boldest ventures</span>
+    <span style="font-size:13px;color:#777777;">© 2026 foundr</span>
+  </footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;motion&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Motion&quot;}}">
+class Component extends DCLogic {
+  state = { navOpen: false, dotsHover: false, tried: false, sent: false, sentName: '', form: { name: '', company: '', email: '', stage: 'Seed', role: '', more: '' } };
+  stages = ['Pre-seed', 'Seed', 'Series A', 'Series B', 'Series C+'];
+  componentDidMount() { window.addEventListener('keydown', this.onKey); }
+  componentWillUnmount() { window.removeEventListener('keydown', this.onKey); }
+  onKey = e => { if (e.key === 'Escape' && this.state.navOpen) this.closeNav(); };
+  openNav = () => this.setState({ navOpen: true });
+  closeNav = () => this.setState({ navOpen: false });
+  dotsEnter = () => this.setState({ dotsHover: true });
+  dotsLeave = () => this.setState({ dotsHover: false });
+  field = k => e => { const v = e.target.value; this.setState(s => ({ form: { ...s.form, [k]: v } })); };
+  valid = f => f.name.trim() && /^\S+@\S+\.\S+$/.test(f.email) && f.role.trim();
+  submit = () => { const f = this.state.form; if (!this.valid(f)) { this.setState({ tried: true }); return; } this.setState({ sent: true, sentName: f.name.trim().split(' ')[0] }); };
+  get motion() {
+    const reduced = typeof matchMedia !== 'undefined' && matchMedia('(prefers-reduced-motion: reduce)').matches;
+    return (this.props.motion ?? true) && !reduced;
+  }
+  renderVals() {
+    const { form: f, tried, sent, sentName } = this.state;
+    return {
+      navOpen: this.state.navOpen, navOpenAttr: this.state.navOpen ? 'true' : 'false', openNav: this.openNav, closeNav: this.closeNav,
+      dotsEnter: this.dotsEnter, dotsLeave: this.dotsLeave, dotsRotate: this.state.dotsHover && this.motion ? '90deg' : '0deg',
+      stages: this.stages, sent, notSent: !sent, sentName,
+      fName: f.name, fCompany: f.company, fEmail: f.email, fStage: f.stage, fRole: f.role, fMore: f.more,
+      setName: this.field('name'), setCompany: this.field('company'), setEmail: this.field('email'), setStage: this.field('stage'), setRole: this.field('role'), setMore: this.field('more'),
+      errName: tried && !f.name.trim() ? 'Add your name' : '', errEmail: tried && !/^\S+@\S+\.\S+$/.test(f.email) ? 'Add a valid email' : '', errRole: tried && !f.role.trim() ? 'Tell us the role' : '',
+      submit: this.submit
+    };
+  }
+}
+</script>
+</body>
+</html>

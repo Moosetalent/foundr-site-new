@@ -1,0 +1,11 @@
+:root{
+--font-sans:'Archivo',Helvetica,Arial,sans-serif;
+--font-brand:'League Spartan',sans-serif; /* wordmark face only — never for running text */
+--fs-display:48px; --lh-display:1.12 /* @kind other */; --ls-display:-0.02em; --fw-display:600 /* @kind font */;
+--fs-headline:26px; --lh-headline:1.25 /* @kind other */; --fw-headline:500 /* @kind font */;
+--fs-title:16px; --fw-title:600 /* @kind font */;
+--fs-body:15px; --lh-body:1.6 /* @kind other */; --fw-body:400 /* @kind font */;
+--fs-small:13px; --lh-small:1.55 /* @kind other */;
+--fs-caption:12px;
+--fs-label:11px; --ls-label:0.25em; --fw-label:500 /* @kind font */; /* tracked uppercase */
+}
